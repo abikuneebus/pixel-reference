@@ -6,5 +6,11 @@ export interface IShape {
   width: number;
   height: number;
   rotation?: number;
-  type: 'rectangle' | 'circle' | 'triangle';
+  type: "rectangle" | "circle" | "triangle";
+}
+
+export interface DraggableShapeProps {
+  id: string;
+  left: number;
+  top: number;
 }
