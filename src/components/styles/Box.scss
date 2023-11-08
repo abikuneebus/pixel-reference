@@ -1,0 +1,22 @@
+@import "variables";
+.box {
+  position: absolute;
+  background-color: $color-dk-blue;
+  cursor: move;
+
+  // &.rectangle {
+  //   // styles for rectangle
+  // }
+
+  &.circle {
+    border-radius: 50%;
+  }
+
+  &.triangle {
+    width: 0;
+    height: 0;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: $color-yellow;
+  }
+}

@@ -1,0 +1,8 @@
+@import "variables";
+
+.canvas-container {
+  width: 100%;
+  height: 500px; //ToDo: make dynamic
+  border: 1px solid black;
+  position: relative; // necessary to absolutely position children (boxes)
+}
