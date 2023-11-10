@@ -1,42 +1,65 @@
 .control-panel {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   max-width: 700px;
   margin: 0 auto;
   padding: 20px;
 
-  form {
-    display: flex;
-    gap: 10px;
+  //* controls used for shape generation
+  .generation {
+    width: 100%;
+    padding-bottom: 1em;
+    justify-content: center;
 
-    select,
-    button {
-      margin: 0 5px;
-      height: 2em; // Adjust the height to be closer to the height of the text
+    form {
       display: flex;
-      align-items: center;
+      gap: 10px;
       justify-content: center;
-      align-self: center;
-    }
 
-    label {
-      display: flex;
-      flex-direction: column;
-      align-items: center; // Center label text over input
-      justify-content: center;
-      margin: 0 5px;
+      select,
+      input,
+      button {
+        margin: 0 5px;
+      }
 
-      input[type="number"] {
-        width: 4em; // You may adjust this width as necessary
-        padding: 5px;
-        margin-top: 5px; // Space between label and input
+      select,
+      button {
+        text-align: center;
+        height: 3em;
+        width: 6.25em;
+        align-self: center;
+      }
+
+      label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        input[type="number"] {
+          width: 4em;
+          padding: 5px;
+          margin-top: 5px;
+        }
+      }
+
+      button {
+        cursor: pointer;
       }
     }
+  }
+
+  //* controls used for interacting with generated shapes
+  .adjustment {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 
     button {
-      padding: 5px 20px; // Adjust padding to reduce height
+      margin: 0 10px;
+      padding: 5px 20px;
       cursor: pointer;
     }
   }
