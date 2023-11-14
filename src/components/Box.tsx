@@ -21,7 +21,6 @@ const Box: React.FC<BoxProps> = ({
   rotation,
 }) => {
   // set up drag hook
-  console.log(rotation);
   const [{ isDragging }, drag] = useDrag({
     type: "box",
     item: { id, x, y },

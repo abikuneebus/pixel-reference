@@ -12,6 +12,7 @@ const App: React.FC = () => {
   // state to hold array of shapes
   const [shapes, setShapes] = useState<IShape[]>([]);
   const [selectedShape, setSelectedShape] = useState<string | null>(null);
+  const [rotationVersion, setRotationVersion] = useState<number>(0);
 
   // handler for 'Generate' button click
   const handleGenerate = (
@@ -41,14 +42,14 @@ const App: React.FC = () => {
   // rotate selected shape
   const rotateShape = (angleDelta: number) => {
     if (selectedShape) {
-      setShapes(
-        shapes.map((shape) =>
+      setShapes((currentShapes) =>
+        currentShapes.map((shape) =>
           shape.id === selectedShape
             ? { ...shape, rotation: (shape.rotation || 0) + angleDelta }
             : shape
         )
       );
-      console.log(shapes);
+      setRotationVersion(rotationVersion + 1);
     }
   };
 

@@ -16,15 +16,35 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
   onRotate,
 }) => {
   // initialize dimensions to 0
+  const [rotationInterval, setRotationInterval] =
+    useState<NodeJS.Timeout | null>(null);
   const [width, setWidth] = useState<number>(0);
   const [height, setHeight] = useState<number>(0);
   const [shape, setShape] = useState<"rectangle" | "circle" | "triangle">(
     "rectangle"
   );
 
+  // generates shape
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     onGenerate(width, height, shape);
+  };
+
+  // handle rotation
+  const startRotating = (angleDelta: number) => {
+    if (!rotationInterval) {
+      const interval = setInterval(() => {
+        onRotate(angleDelta);
+      }, 100); //! ToDo: tweak as needed
+      setRotationInterval(interval);
+    }
+  };
+
+  const stopRotating = () => {
+    if (rotationInterval) {
+      clearInterval(rotationInterval);
+      setRotationInterval(null);
+    }
   };
 
   // 'onSubmit' calls 'handleSubmit', which calls 'onGenerate' with current state values
@@ -64,8 +84,36 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
         </form>
       </div>
       <div className='adjustment'>
-        <button onClick={() => onRotate(1)}>+</button>
-        <button onClick={() => onRotate(-1)}>-</button>
+        <div className='rotation'>
+          <button
+            className='rotateIncrementButton'
+            onMouseDown={() => {
+              startRotating(1);
+            }}
+            onMouseUp={() => {
+              stopRotating();
+            }}
+            onMouseLeave={() => {
+              stopRotating();
+            }}
+          >
+            +
+          </button>
+          <button
+            className='rotateDecrementButton'
+            onMouseDown={() => {
+              startRotating(-1);
+            }}
+            onMouseUp={() => {
+              stopRotating();
+            }}
+            onMouseLeave={() => {
+              stopRotating();
+            }}
+          >
+            -
+          </button>
+        </div>
       </div>
     </div>
   );
