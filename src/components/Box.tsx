@@ -3,10 +3,23 @@ import { IShape } from "../types";
 import "./styles/Box.scss";
 
 interface BoxProps extends IShape {
-  onMove: (id: string, x: number, y: number) => void; // updates position in parent state
+  onMove: (id: string, x: number, y: number) => void;
+  isSelected: boolean;
+  onClick: (id: string) => void;
 }
 
-const Box: React.FC<BoxProps> = ({ id, x, y, width, height, type, onMove }) => {
+const Box: React.FC<BoxProps> = ({
+  id,
+  x,
+  y,
+  width,
+  height,
+  type,
+  onMove,
+  isSelected,
+  onClick,
+  rotation,
+}) => {
   // set up drag hook
   const [{ isDragging }, drag] = useDrag({
     type: "box",
@@ -32,11 +45,10 @@ const Box: React.FC<BoxProps> = ({ id, x, y, width, height, type, onMove }) => {
     top: `${y}px`,
     width: type !== "triangle" ? `${width}px` : undefined,
     height: type !== "triangle" ? `${height}px` : undefined,
-    borderWidth:
-      type === "triangle"
-        ? `0 ${width / 2}px ${height}px ${width / 2}px`
-        : undefined,
+    border: isSelected ? "2px solid #434aeb" : "none", // highlight selected shape
     opacity: isDragging ? 0.5 : 1,
+    transform: `rotate(${rotation || 0}deg)`,
+    transformOrigin: "center",
   };
 
   // attach drag ref to root element
@@ -45,6 +57,7 @@ const Box: React.FC<BoxProps> = ({ id, x, y, width, height, type, onMove }) => {
       ref={drag}
       className={shapeClassName}
       style={positionStyle}
+      onMouseUp={() => onClick(id)}
     />
   );
 };

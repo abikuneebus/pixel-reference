@@ -1,8 +1,11 @@
 @import "variables";
 
 .canvas-container {
-  width: 100%;
-  height: 500px; //ToDo: make dynamic
+  flex: 1;
+  width: calc(95%);
+  overflow: auto; // scroll inside canvas if content overflows
+  margin-right: auto;
+  margin-left: auto;
   border: 1px solid black;
-  position: relative; // necessary to absolutely position children (boxes)
+  position: relative; // necessary to position generated shapes
 }
