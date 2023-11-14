@@ -2,10 +2,23 @@
 
 .canvas-container {
   flex: 1;
-  width: calc(95%);
-  overflow: auto; // scroll inside canvas if content overflows
+  width: 98%;
+  overflow: auto;
   margin-right: auto;
   margin-left: auto;
+  margin-bottom: 10px;
   border: 1px solid black;
-  position: relative; // necessary to position generated shapes
+  position: relative;
+  background-size: 100px 100px, 50px 50px, 10px 10px;
+  background-image:
+
+    // light-red  @100px
+    linear-gradient(to right, $color-grid-100 1px, transparent 1px),
+    linear-gradient(to bottom, $color-grid-100 1px, transparent 1px),
+    // dark-gray @50px
+    linear-gradient(to right, $color-grid-50 1px, transparent 1px),
+    linear-gradient(to bottom, $color-grid-50 1px, transparent 1px),
+    // light-gray @10px
+    linear-gradient(to right, $color-grid-10 1px, transparent 1px),
+    linear-gradient(to bottom, $color-grid-10 1px, transparent 1px);
 }

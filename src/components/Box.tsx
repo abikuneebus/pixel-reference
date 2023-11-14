@@ -49,6 +49,7 @@ const Box: React.FC<BoxProps> = ({
     opacity: isDragging ? 0.5 : 1,
     transform: `rotate(${rotation || 0}deg)`,
     transformOrigin: "center",
+    boxSizing: "border-box" as const,
   };
 
   // attach drag ref to root element

@@ -4,19 +4,7 @@
   background-color: $color-dk-blue;
   cursor: move;
 
-  // &.rectangle {
-  //   // styles for rectangle
-  // }
-
   &.circle {
     border-radius: 50%;
-  }
-
-  &.triangle {
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 0;
-    border-color: transparent transparent $color-red transparent;
   }
 }
