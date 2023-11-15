@@ -7,39 +7,41 @@ import Canvas from "./components/Canvas";
 import ControlPanel from "./components/ControlPanel";
 import { IShape } from "./types";
 
-// App typed as functional component
 const App: React.FC = () => {
-  // state to hold array of shapes
   const [shapes, setShapes] = useState<IShape[]>([]);
   const [selectedShape, setSelectedShape] = useState<string | null>(null);
   const [rotationVersion, setRotationVersion] = useState<number>(0);
+  const resizeShape = (id: string, newWidth: number, newHeight: number) => {
+    setShapes(
+      shapes.map((shape) =>
+        shape.id === id
+          ? { ...shape, width: newWidth, height: newHeight }
+          : shape
+      )
+    );
+  };
 
-  // handler for 'Generate' button click
   const handleGenerate = (
     width: number,
     height: number,
     shape: "rectangle" | "circle" | "triangle"
   ) => {
-    // create new shape object
     const newShape: IShape = {
-      id: `shape-${shapes.length + 1}`, // (simple) unique ID generator
-      x: 50, // initial X pos
-      y: 50, // initial Y pos
+      id: `shape-${shapes.length + 1}`,
+      x: 50,
+      y: 50,
       width: width,
       height: height,
-      type: shape, // default shape
+      type: shape,
       rotation: 0,
     };
-    // update shapes array with new shape
     setShapes([...shapes, newShape]);
   };
 
-  // select generated shape
   const selectShape = (id: string) => {
     setSelectedShape(id);
   };
 
-  // rotate selected shape
   const rotateShape = (angleDelta: number) => {
     if (selectedShape) {
       setShapes((currentShapes) =>
@@ -53,7 +55,6 @@ const App: React.FC = () => {
     }
   };
 
-  // update position of the shapes
   const moveShape = (id: string, x: number, y: number) => {
     setShapes(
       shapes.map((shape) => (shape.id === id ? { ...shape, x, y } : shape))
@@ -71,7 +72,6 @@ const App: React.FC = () => {
         />
         <Canvas onDrop={moveShape}>
           {shapes.map((shape) => (
-            // render a box for each shape in the state
             <Box
               key={shape.id}
               id={shape.id}
@@ -81,9 +81,11 @@ const App: React.FC = () => {
               height={shape.height}
               type={shape.type}
               rotation={shape.rotation}
-              onMove={moveShape} // pass the moveShape function to Box
+              onMove={moveShape}
               isSelected={selectedShape === shape.id}
               onClick={selectShape}
+              resizable={true}
+              onResize={resizeShape}
             />
           ))}
         </Canvas>
