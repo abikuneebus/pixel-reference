@@ -11,13 +11,26 @@ const App: React.FC = () => {
   const [shapes, setShapes] = useState<IShape[]>([]);
   const [selectedShape, setSelectedShape] = useState<string | null>(null);
   const [rotationVersion, setRotationVersion] = useState<number>(0);
-  const resizeShape = (id: string, newWidth: number, newHeight: number) => {
+  const resizeShape = (
+    id: string,
+    newWidth: number,
+    newHeight: number,
+    newX?: number,
+    newY?: number
+  ) => {
     setShapes(
-      shapes.map((shape) =>
-        shape.id === id
-          ? { ...shape, width: newWidth, height: newHeight }
-          : shape
-      )
+      shapes.map((shape) => {
+        if (shape.id === id) {
+          return {
+            ...shape,
+            width: newWidth,
+            height: newHeight,
+            x: newX !== undefined ? newX : shape.x,
+            y: newY !== undefined ? newY : shape.y,
+          };
+        }
+        return shape;
+      })
     );
   };
 
