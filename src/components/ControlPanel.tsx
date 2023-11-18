@@ -99,43 +99,48 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
         </form>
       </div>
       <div className='adjustment'>
-        <div className='rotation'>
-          <button
-            className='rotateIncrementButton'
-            onClick={(e) => e.stopPropagation()}
-            onMouseDown={() => {
-              startRotating(1);
-            }}
-            onMouseUp={() => {
-              stopRotating();
-            }}
-            onMouseLeave={() => {
-              stopRotating();
-            }}
-          >
-            +
-          </button>
-          <input
-            type='number'
-            value={rotation}
-            onChange={(e) => setRotation(Number(e.target.value))}
-          />
-          <button
-            className='rotateDecrementButton'
-            onClick={(e) => e.stopPropagation()}
-            onMouseDown={() => {
-              startRotating(-1);
-            }}
-            onMouseUp={() => {
-              stopRotating();
-            }}
-            onMouseLeave={() => {
-              stopRotating();
-            }}
-          >
-            -
-          </button>
-        </div>
+        <button>Lorem</button> {/* replace with feature */}
+        <div className='rotation-container'>
+          <div className='rotation'>
+            <button
+              className='rotateIncrementButton'
+              onClick={(e) => e.stopPropagation()}
+              onMouseDown={() => {
+                startRotating(1);
+              }}
+              onMouseUp={() => {
+                stopRotating();
+              }}
+              onMouseLeave={() => {
+                stopRotating();
+              }}
+            >
+              +
+            </button>
+            <input
+              type='number'
+              value={rotation}
+              onChange={(e) => setRotation(Number(e.target.value))}
+            />
+            <button
+              className='rotateDecrementButton'
+              onClick={(e) => e.stopPropagation()}
+              onMouseDown={() => {
+                startRotating(-1);
+              }}
+              onMouseUp={() => {
+                stopRotating();
+              }}
+              onMouseLeave={() => {
+                stopRotating();
+              }}
+            >
+              -
+            </button>
+          </div>
+        </div>{" "}
+        {/*  */}
+        <button className='deleteButton'>Delete</button>
       </div>
     </div>
   );
