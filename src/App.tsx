@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import "./App.scss";
@@ -92,6 +92,29 @@ const App: React.FC = () => {
     );
   };
 
+  const deleteShape = useCallback(() => {
+    if (selectedShape) {
+      setShapes((prevShapes) =>
+        prevShapes.filter((shape) => shape.id !== selectedShape)
+      );
+      setSelectedShape(null);
+    }
+  }, [selectedShape]);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Delete") {
+        deleteShape();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [deleteShape]);
+
   return (
     <DndProvider backend={HTML5Backend}>
       <div
@@ -110,6 +133,7 @@ const App: React.FC = () => {
           setWidth={setShapeWidth}
           setHeight={setShapeHeight}
           setRotation={setShapeRotation}
+          onDelete={deleteShape}
         />
         <Canvas
           onDrop={moveShape}
