@@ -16,6 +16,7 @@ interface ControlPanelProps {
   setHeight: React.Dispatch<React.SetStateAction<number>>;
   setRotation: React.Dispatch<React.SetStateAction<number>>;
   onClick: () => void;
+  onDelete: () => void;
 }
 const ControlPanel: React.FC<ControlPanelProps> = ({
   onGenerate,
@@ -26,6 +27,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
   setWidth,
   setHeight,
   setRotation,
+  onDelete,
 }) => {
   // initialize dimensions to 0
   const [rotationInterval, setRotationInterval] =
@@ -78,7 +80,20 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
             <input
               type='number'
               value={width}
-              onChange={(e) => setWidth(Number(e.target.value))}
+              onChange={(e) =>
+                setWidth(e.target.value === "" ? 0 : Number(e.target.value))
+              }
+              onFocus={(e) => {
+                if (e.target.value === "0") {
+                  e.target.value = "";
+                }
+              }}
+              onBlur={(e) => {
+                if (e.target.value === "") {
+                  setWidth(0);
+                  e.target.value = "0";
+                }
+              }}
             />
           </label>
           <label>
@@ -87,7 +102,20 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
             <input
               type='number'
               value={height}
-              onChange={(e) => setHeight(Number(e.target.value))}
+              onChange={(e) =>
+                setHeight(e.target.value === "" ? 0 : Number(e.target.value))
+              }
+              onFocus={(e) => {
+                if (e.target.value === "0") {
+                  e.target.value = "";
+                }
+              }}
+              onBlur={(e) => {
+                if (e.target.value === "") {
+                  setHeight(0);
+                  e.target.value = "0";
+                }
+              }}
             />
           </label>
           <button
@@ -120,7 +148,20 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
             <input
               type='number'
               value={rotation}
-              onChange={(e) => setRotation(Number(e.target.value))}
+              onChange={(e) =>
+                setRotation(e.target.value === "" ? 0 : Number(e.target.value))
+              }
+              onFocus={(e) => {
+                if (e.target.value === "0") {
+                  e.target.value = "";
+                }
+              }}
+              onBlur={(e) => {
+                if (e.target.value === "") {
+                  setRotation(0);
+                  e.target.value = "0";
+                }
+              }}
             />
             <button
               className='rotateDecrementButton'
@@ -140,7 +181,12 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
           </div>
         </div>{" "}
         {/*  */}
-        <button className='deleteButton'>Delete</button>
+        <button
+          className='deleteButton'
+          onClick={onDelete}
+        >
+          Delete
+        </button>
       </div>
     </div>
   );
