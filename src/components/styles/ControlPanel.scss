@@ -1,11 +1,30 @@
 .control-panel {
   display: flex;
+  height: 8vh;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   max-width: 700px;
   margin: 0 auto;
   padding: 20px;
+
+  input::-webkit-inner-spin-button,
+  input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+
+  input[type="number"] {
+    width: 4em;
+    padding: 5px;
+    margin-top: 5px;
+    text-align: center;
+  }
 
   //* controls used for shape generation
   .generation {
@@ -30,6 +49,7 @@
         height: 3em;
         width: 6.25em;
         align-self: center;
+        margin-top: 1em;
       }
 
       label {
@@ -38,7 +58,6 @@
         align-items: center;
 
         input[type="number"] {
-          width: 4em;
           padding: 5px;
           margin-top: 5px;
         }

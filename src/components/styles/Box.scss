@@ -1,22 +1,41 @@
 @import "variables";
+
 .box {
   position: absolute;
-  background-color: $color-dk-blue;
+  background-color: $color-lt-blue;
   cursor: move;
-
-  // &.rectangle {
-  //   // styles for rectangle
-  // }
 
   &.circle {
     border-radius: 50%;
   }
 
-  &.triangle {
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 0;
-    border-color: transparent transparent $color-red transparent;
+  &.selected {
+    position: relative;
+    background-color: darken($color-lt-blue, 10%);
+
+    .top-left,
+    .bottom-right {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: $color-resize-handles;
+      border-radius: 50%;
+
+      &:hover {
+        background-color: darken($color-resize-handles, 10%);
+      }
+    }
+
+    .top-left {
+      top: -5px;
+      left: -5px;
+      cursor: nwse-resize;
+    }
+
+    .bottom-right {
+      bottom: -5px;
+      right: -5px;
+      cursor: nwse-resize;
+    }
   }
 }
