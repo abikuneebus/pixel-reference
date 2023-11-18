@@ -6,9 +6,15 @@ interface CanvasProps {
   onDrop: (id: string, left: number, top: number) => void; // function to update position on drop
   children: React.ReactNode;
   className?: string; // ToDo: use it or lose it
+  setSelectedShape: (value: string | null) => void;
 }
 
-const Canvas: React.FC<CanvasProps> = ({ onDrop, children, className }) => {
+const Canvas: React.FC<CanvasProps> = ({
+  onDrop,
+  children,
+  className,
+  setSelectedShape,
+}) => {
   const [, drop] = useDrop({
     accept: "box", // accepts the same type as defined in draggable items
     drop: (item: any, monitor) => {
@@ -60,6 +66,7 @@ const Canvas: React.FC<CanvasProps> = ({ onDrop, children, className }) => {
         width: `${canvasSize.width}px`,
         height: `${canvasSize.height}px`,
       }}
+      onClick={() => setSelectedShape(null)}
     >
       {children}
     </div>

@@ -149,6 +149,7 @@ const Box: React.FC<BoxProps> = ({
         onClick(id);
         setResizing(false); // stop resizing on mouse-up
       }}
+      onClick={(e) => e.stopPropagation()}
     >
       {isSelected && resizable && (
         <>

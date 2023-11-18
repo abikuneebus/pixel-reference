@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import "./App.scss";
@@ -10,6 +10,9 @@ import { IShape } from "./types";
 const App: React.FC = () => {
   const [shapes, setShapes] = useState<IShape[]>([]);
   const [selectedShape, setSelectedShape] = useState<string | null>(null);
+  const [shapeWidth, setShapeWidth] = useState<number>(0);
+  const [shapeHeight, setShapeHeight] = useState<number>(0);
+  const [shapeRotation, setShapeRotation] = useState<number>(0);
   const [rotationVersion, setRotationVersion] = useState<number>(0);
   const resizeShape = (
     id: string,
@@ -33,6 +36,21 @@ const App: React.FC = () => {
       })
     );
   };
+
+  // update ControlPanel when shape selected
+  useEffect(() => {
+    const selected = shapes.find((shape) => shape.id === selectedShape);
+    if (selected) {
+      setShapeWidth(selected.width);
+      setShapeHeight(selected.height);
+      setShapeRotation(selected.rotation || 0);
+    } else {
+      // reset if no shape selected
+      setShapeWidth(0);
+      setShapeHeight(0);
+      setShapeRotation(0);
+    }
+  }, [selectedShape, shapes]);
 
   const handleGenerate = (
     width: number,
@@ -76,14 +94,27 @@ const App: React.FC = () => {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className='main-container'>
+      <div
+        className='main-container'
+        onClick={() => setSelectedShape(null)} // deselect shape
+      >
         <ControlPanel
           onGenerate={(width, height, shape) =>
             handleGenerate(width, height, shape)
           }
+          onClick={() => setSelectedShape(null)} // deselect shape
           onRotate={rotateShape}
+          width={shapeWidth}
+          height={shapeHeight}
+          rotation={shapeRotation}
+          setWidth={setShapeWidth}
+          setHeight={setShapeHeight}
+          setRotation={setShapeRotation}
         />
-        <Canvas onDrop={moveShape}>
+        <Canvas
+          onDrop={moveShape}
+          setSelectedShape={setSelectedShape}
+        >
           {shapes.map((shape) => (
             <Box
               key={shape.id}

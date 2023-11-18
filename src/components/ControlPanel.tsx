@@ -9,17 +9,27 @@ interface ControlPanelProps {
     shape: "rectangle" | "circle" | "triangle"
   ) => void;
   onRotate: (angleDelta: number) => void;
+  width: number;
+  height: number;
+  rotation: number;
+  setWidth: React.Dispatch<React.SetStateAction<number>>;
+  setHeight: React.Dispatch<React.SetStateAction<number>>;
+  setRotation: React.Dispatch<React.SetStateAction<number>>;
+  onClick: () => void;
 }
-
 const ControlPanel: React.FC<ControlPanelProps> = ({
   onGenerate,
   onRotate,
+  width,
+  height,
+  rotation,
+  setWidth,
+  setHeight,
+  setRotation,
 }) => {
   // initialize dimensions to 0
   const [rotationInterval, setRotationInterval] =
     useState<NodeJS.Timeout | null>(null);
-  const [width, setWidth] = useState<number>(0);
-  const [height, setHeight] = useState<number>(0);
   const [shape, setShape] = useState<"rectangle" | "circle" | "triangle">(
     "rectangle"
   );
@@ -80,13 +90,19 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
               onChange={(e) => setHeight(Number(e.target.value))}
             />
           </label>
-          <button type='submit'>Generate</button>
+          <button
+            type='submit'
+            onClick={(e) => e.stopPropagation()}
+          >
+            Generate
+          </button>
         </form>
       </div>
       <div className='adjustment'>
         <div className='rotation'>
           <button
             className='rotateIncrementButton'
+            onClick={(e) => e.stopPropagation()}
             onMouseDown={() => {
               startRotating(1);
             }}
@@ -99,8 +115,14 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
           >
             +
           </button>
+          <input
+            type='number'
+            value={rotation}
+            onChange={(e) => setRotation(Number(e.target.value))}
+          />
           <button
             className='rotateDecrementButton'
+            onClick={(e) => e.stopPropagation()}
             onMouseDown={() => {
               startRotating(-1);
             }}
