@@ -13,7 +13,7 @@ const App: React.FC = () => {
   const [shapeWidth, setShapeWidth] = useState<number>(0);
   const [shapeHeight, setShapeHeight] = useState<number>(0);
   const [shapeRotation, setShapeRotation] = useState<number>(0);
-  const [rotationVersion, setRotationVersion] = useState<number>(0);
+  // const [rotationVersion, setRotationVersion] = useState<number>(0);
   const resizeShape = (
     id: string,
     newWidth: number,
@@ -64,7 +64,7 @@ const App: React.FC = () => {
       width: width,
       height: height,
       type: shape,
-      rotation: 0,
+      rotation: shapeRotation,
     };
     setShapes([...shapes, newShape]);
   };
@@ -73,18 +73,26 @@ const App: React.FC = () => {
     setSelectedShape(id);
   };
 
-  const rotateShape = (angleDelta: number) => {
-    if (selectedShape) {
-      setShapes((currentShapes) =>
-        currentShapes.map((shape) =>
-          shape.id === selectedShape
-            ? { ...shape, rotation: (shape.rotation || 0) + angleDelta }
-            : shape
-        )
-      );
-      setRotationVersion(rotationVersion + 1);
-    }
-  };
+  const rotateShape = useCallback(
+    (angleDelta: number) => {
+      if (selectedShape) {
+        setTimeout(() => {
+          setShapes((currentShapes) => {
+            return currentShapes.map((shape) => {
+              if (shape.id === selectedShape) {
+                return {
+                  ...shape,
+                  rotation: (shape.rotation || 0) + angleDelta,
+                };
+              }
+              return shape;
+            });
+          });
+        }, 0);
+      }
+    },
+    [selectedShape]
+  );
 
   const moveShape = (id: string, x: number, y: number) => {
     setShapes(
@@ -118,14 +126,14 @@ const App: React.FC = () => {
   return (
     <DndProvider backend={HTML5Backend}>
       <div
-        className='main-container'
-        onClick={() => setSelectedShape(null)} // deselect shape
+        className='mainContainer'
+        // onClick={() => setSelectedShape(null)} // deselect shape
       >
         <ControlPanel
           onGenerate={(width, height, shape) =>
             handleGenerate(width, height, shape)
           }
-          onClick={() => setSelectedShape(null)} // deselect shape
+          // onClick={() => setSelectedShape(null)} // deselect shape
           onRotate={rotateShape}
           width={shapeWidth}
           height={shapeHeight}

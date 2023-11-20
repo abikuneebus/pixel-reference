@@ -1,4 +1,4 @@
-.control-panel {
+.controlPanelContainer {
   display: flex;
   height: 8vh;
   flex-direction: column;
@@ -76,16 +76,20 @@
     align-items: center;
     width: 100%;
 
-    // ToDo: style '+' & '-' buttons
-    // .rotateIncrementButton {
-    // }
-    // .rotateDecrementButton {
-    // }
+    .rotationControlContainer {
+      input[type="number"] {
+        width: 2.5em;
+      }
+      // .rotateIncrementButton {
+      // }
+      // .rotateDecrementButton {
+      // }
 
-    button {
-      margin: 0 10px;
-      padding: 5px 20px;
-      cursor: pointer;
+      button {
+        margin: 0 10px;
+        padding: 5px 20px;
+        cursor: pointer;
+      }
     }
   }
 }

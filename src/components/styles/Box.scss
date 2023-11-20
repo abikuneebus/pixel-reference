@@ -2,7 +2,7 @@
 
 .box {
   position: absolute;
-  background-color: $color-lt-blue;
+  background-color: $color-shape;
   cursor: move;
 
   &.circle {
@@ -11,7 +11,7 @@
 
   &.selected {
     position: relative;
-    background-color: darken($color-lt-blue, 10%);
+    background-color: rgba($color-shape, 70%);
 
     .top-left,
     .bottom-right {
@@ -22,6 +22,7 @@
       border-radius: 50%;
 
       &:hover {
+        transform: scale(120%);
         background-color: darken($color-resize-handles, 10%);
       }
     }
