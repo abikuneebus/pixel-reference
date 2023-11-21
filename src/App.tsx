@@ -5,6 +5,7 @@ import "./App.scss";
 import Box from "./components/Box";
 import Canvas from "./components/Canvas";
 import ControlPanel from "./components/ControlPanel";
+import ThemeToggle from "./components/ThemeToggle";
 import { IShape } from "./types";
 
 const App: React.FC = () => {
@@ -13,6 +14,12 @@ const App: React.FC = () => {
   const [shapeWidth, setShapeWidth] = useState<number>(0);
   const [shapeHeight, setShapeHeight] = useState<number>(0);
   const [shapeRotation, setShapeRotation] = useState<number>(0);
+  const [isDarkMode, setIsDarkMode] = useState(true); // ToDo: set to true once style created
+
+  // light/dark mode control
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+  };
 
   const updateShape = (
     newWidth: number,
@@ -148,7 +155,11 @@ const App: React.FC = () => {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className='mainContainer'>
+      <div className={`mainContainer ${isDarkMode ? "dark" : "light"}`}>
+        <ThemeToggle
+          onToggle={toggleTheme}
+          isDarkMode={isDarkMode}
+        ></ThemeToggle>
         <ControlPanel
           onGenerate={handleGenerate}
           onUpdateShape={updateShape}

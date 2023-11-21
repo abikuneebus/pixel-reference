@@ -34,6 +34,7 @@ const Box: React.FC<BoxProps> = ({
   setSelectedShape,
 }) => {
   // drag to resize
+  const [resizeDirection, setResizeDirection] = useState<string | null>(null);
   const [resizing, setResizing] = useState<boolean>(false);
   const [initialMouseX, SetInitialMouseX] = useState(0);
   const [initialMouseY, SetInitialMouseY] = useState(0);
@@ -43,7 +44,10 @@ const Box: React.FC<BoxProps> = ({
   const [initialY, setInitialY] = useState(y);
 
   // handle differentiating between dragging and resizing
-  const handleResizeMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleResizeMouseDown = (
+    e: React.MouseEvent<HTMLDivElement>,
+    direction: string
+  ) => {
     e.stopPropagation(); // prevent DnD logic
     if (resizable && isSelected) {
       setResizing(true);
@@ -53,6 +57,7 @@ const Box: React.FC<BoxProps> = ({
       SetInitialHeight(height);
       setInitialX(x);
       setInitialY(y);
+      setResizeDirection(direction);
     }
   };
 
@@ -60,24 +65,37 @@ const Box: React.FC<BoxProps> = ({
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (resizing) {
-        const dx = e.clientX - initialMouseX;
-        const dy = e.clientY - initialMouseY;
+        let dx = e.clientX - initialMouseX;
+        let dy = e.clientY - initialMouseY;
 
-        let newWidth = initialWidth + dx;
-        let newHeight = initialHeight + dy;
+        let newWidth = initialWidth;
+        let newHeight = initialHeight;
         let newX = initialX;
         let newY = initialY;
 
-        // if resizing leftwards, adjust position & width
-        if (newWidth < 0) {
-          newX = initialX + newWidth;
-          newWidth = Math.abs(newWidth);
-        }
-
-        // if resizing upwards, adjust position height
-        if (newHeight < 0) {
-          newY = initialY + newHeight;
-          newHeight = Math.abs(newHeight);
+        switch (resizeDirection) {
+          case "topLeft":
+            newWidth -= dx;
+            newHeight -= dy;
+            newX += dx;
+            newY += dy;
+            break;
+          case "topRight":
+            newWidth += dx;
+            newHeight -= dy;
+            newY += dy;
+            break;
+          case "bottomLeft":
+            newWidth -= dx;
+            newHeight += dy;
+            newX += dx;
+            break;
+          case "bottomRight":
+            newWidth += dx;
+            newHeight += dy;
+            break;
+          default:
+            break;
         }
 
         onResize(id, newWidth, newHeight, newX, newY);
@@ -110,7 +128,9 @@ const Box: React.FC<BoxProps> = ({
     initialY,
     onResize,
     id,
+    resizeDirection,
   ]);
+
 
   // handle relocation
   const [{ isDragging }, drag] = useDrag({
@@ -168,8 +188,20 @@ const Box: React.FC<BoxProps> = ({
       {isSelected && resizable && (
         <>
           <div
-            className='boxResizeHandle'
-            onMouseDown={handleResizeMouseDown}
+            className='topLeft'
+            onMouseDown={(e) => handleResizeMouseDown(e, "topLeft")}
+          />
+          <div
+            className='topRight'
+            onMouseDown={(e) => handleResizeMouseDown(e, "topRight")}
+          />
+          <div
+            className='bottomRight'
+            onMouseDown={(e) => handleResizeMouseDown(e, "bottomRight")}
+          />
+          <div
+            className='bottomLeft'
+            onMouseDown={(e) => handleResizeMouseDown(e, "bottomLeft")}
           />
         </>
       )}

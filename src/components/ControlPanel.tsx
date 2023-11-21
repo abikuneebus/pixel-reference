@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./styles/ControlPanel.scss";
 
 interface ControlPanelProps {
@@ -34,25 +34,65 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
   onDelete,
   selectedShapeExists,
 }) => {
-  // ToDO: pass to 'Box'
-  // const [selectedShapeExists, setSelectedShapeExists] =
-  //   useState<boolean>(false);
-
-  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-      if (selectedShapeExists) {
-        onUpdateShape(width, height, rotation);
-      } else {
-        onGenerate(width, height, shape);
-      }
-    }
-  };
-
-  // initialize dimensions to 0
   const [rotationInterval, setRotationInterval] =
     useState<NodeJS.Timeout | null>(null);
   const [shape, setShape] = useState<"rectangle" | "circle" | "triangle">(
     "rectangle"
+  );
+
+  // debounce hook
+  const useDebounce = <F extends (...args: any[]) => any>(
+    func: F,
+    delay: number
+  ) => {
+    const [debouncedFunc, setDebouncedFunc] = useState<
+      (...args: Parameters<F>) => void
+    >(() => func);
+
+    useEffect(() => {
+      const handler = setTimeout(() => setDebouncedFunc(() => func), delay);
+
+      return () => {
+        clearTimeout(handler);
+      };
+    }, [func, delay]);
+
+    return debouncedFunc;
+  };
+
+  // debounced shape generation
+  const debouncedHandleGenerate = useDebounce(
+    (
+      width: number,
+      height: number,
+      shape: "rectangle" | "circle" | "triangle"
+    ) => {
+      onGenerate(width, height, shape);
+    },
+    300
+  );
+
+  // key press handler
+  const handleKeyPress = useCallback(
+    (event: React.KeyboardEvent<HTMLInputElement>) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        if (selectedShapeExists) {
+          onUpdateShape(width, height, rotation);
+        } else {
+          debouncedHandleGenerate(width, height, shape);
+        }
+      }
+    },
+    [
+      width,
+      height,
+      rotation,
+      shape,
+      debouncedHandleGenerate,
+      onUpdateShape,
+      selectedShapeExists,
+    ]
   );
 
   // handles directly input rotation value using input field

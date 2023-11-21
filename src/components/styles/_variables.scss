@@ -1,16 +1,42 @@
-// environment colors
-$color-grid-10: #c5c5c550;
-$color-grid-50: #75757560;
-$color-grid-100: #8f575770;
-$color-resize-handles: #1f3a50df;
-$color-tooltip-BG: #e0eff0df;
-$color-border-dk: #16162e;
-$color-shape: #2039F6DF;
+/*
+
+#ECEFF1
+#CFD8DC
+#B0BEC5
+#90A4AE
+#78909C
+#607D8B
+#546E7A
+#455A64
+#37474F
+#263238
+
+*/
 
 // general colors
-$color-dk-blue: #002244;
-$color-blue: #00abee;
-$color-lt-blue: #6688aa;
-$color-red: #ab1209;
-$color-yellow: #bbbb00;
-$color-green: #009901;
+$colorDkBlue: #002244;
+$colorBlue: #00abee;
+$colorLtBlue: #6688aa;
+$colorRed: #ab1209;
+$colorYellow: #bbbb00;
+$colorGreen: #009901;
+
+// environment colors
+
+// light-mode
+$ltColorBackground: #eceff1;
+$ltColorGrid10: #c5c5c550;
+$ltColorGrid50: #75757560;
+$ltColorGrid100: #8f575770;
+$ltColorResizeHandles: #1f3a50df;
+$ltColorBorder: #16162e;
+$ltColorShape: #2039f6df;
+
+// dark-mode
+$dkColorBackground: #263238;
+$dkColorGrid10: #e5e5e550;
+$dkColorGrid50: #bfbfbf60;
+$dkColorGrid100: #bf978350;
+$dkColorResizeHandles: #78909c;
+$dkColorBorder: #b0bec5;
+$dkColorShape: #bf94e4;
