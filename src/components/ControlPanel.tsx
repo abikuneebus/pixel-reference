@@ -8,6 +8,9 @@ interface ControlPanelProps {
     height: number,
     shape: "rectangle" | "circle" | "triangle"
   ) => void;
+  // manually entering dimensions/rotation
+  onUpdateShape: (width: number, height: number, rotation: number) => void;
+  // using rotate buttons
   onRotate: (angleDelta: number) => void;
   width: number;
   height: number;
@@ -15,12 +18,13 @@ interface ControlPanelProps {
   setWidth: React.Dispatch<React.SetStateAction<number>>;
   setHeight: React.Dispatch<React.SetStateAction<number>>;
   setRotation: React.Dispatch<React.SetStateAction<number>>;
-  // onClick: () => void;
   onDelete: () => void;
+  selectedShapeExists: boolean;
 }
 const ControlPanel: React.FC<ControlPanelProps> = ({
   onGenerate,
   onRotate,
+  onUpdateShape,
   width,
   height,
   rotation,
@@ -28,7 +32,22 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
   setHeight,
   setRotation,
   onDelete,
+  selectedShapeExists,
 }) => {
+  // ToDO: pass to 'Box'
+  // const [selectedShapeExists, setSelectedShapeExists] =
+  //   useState<boolean>(false);
+
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      if (selectedShapeExists) {
+        onUpdateShape(width, height, rotation);
+      } else {
+        onGenerate(width, height, shape);
+      }
+    }
+  };
+
   // initialize dimensions to 0
   const [rotationInterval, setRotationInterval] =
     useState<NodeJS.Timeout | null>(null);
@@ -94,9 +113,8 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
             <input
               type='number'
               value={width}
-              onChange={(e) =>
-                setWidth(e.target.value === "" ? 0 : Number(e.target.value))
-              }
+              onKeyDown={handleKeyPress}
+              onChange={(e) => setWidth(Number(e.target.value))}
               onFocus={(e) => {
                 if (e.target.value === "0") {
                   e.target.value = "";
@@ -116,9 +134,8 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
             <input
               type='number'
               value={height}
-              onChange={(e) =>
-                setHeight(e.target.value === "" ? 0 : Number(e.target.value))
-              }
+              onKeyDown={handleKeyPress}
+              onChange={(e) => setHeight(Number(e.target.value))}
               onFocus={(e) => {
                 if (e.target.value === "0") {
                   e.target.value = "";
@@ -165,7 +182,8 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
           <input
             type='number'
             value={rotation}
-            onChange={(e) => handleRotationChange(Number(e.target.value))}
+            onKeyDown={handleKeyPress}
+            onChange={(e) => setRotation(Number(e.target.value))}
             onFocus={(e) => {
               if (e.target.value === "0") {
                 e.target.value = "";

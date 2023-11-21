@@ -13,7 +13,28 @@ const App: React.FC = () => {
   const [shapeWidth, setShapeWidth] = useState<number>(0);
   const [shapeHeight, setShapeHeight] = useState<number>(0);
   const [shapeRotation, setShapeRotation] = useState<number>(0);
-  // const [rotationVersion, setRotationVersion] = useState<number>(0);
+
+  const updateShape = (
+    newWidth: number,
+    newHeight: number,
+    newRotation: number
+  ) => {
+    if (selectedShape) {
+      setShapes(
+        shapes.map((shape) =>
+          shape.id === selectedShape
+            ? {
+                ...shape,
+                width: newWidth,
+                height: newHeight,
+                rotation: newRotation,
+              }
+            : shape
+        )
+      );
+    }
+  };
+
   const resizeShape = (
     id: string,
     newWidth: number,
@@ -51,6 +72,8 @@ const App: React.FC = () => {
       setShapeRotation(0);
     }
   }, [selectedShape, shapes]);
+
+  const isSelectedShape = !!selectedShape;
 
   const handleGenerate = (
     width: number,
@@ -125,15 +148,10 @@ const App: React.FC = () => {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div
-        className='mainContainer'
-        // onClick={() => setSelectedShape(null)} // deselect shape
-      >
+      <div className='mainContainer'>
         <ControlPanel
-          onGenerate={(width, height, shape) =>
-            handleGenerate(width, height, shape)
-          }
-          // onClick={() => setSelectedShape(null)} // deselect shape
+          onGenerate={handleGenerate}
+          onUpdateShape={updateShape}
           onRotate={rotateShape}
           width={shapeWidth}
           height={shapeHeight}
@@ -142,6 +160,7 @@ const App: React.FC = () => {
           setHeight={setShapeHeight}
           setRotation={setShapeRotation}
           onDelete={deleteShape}
+          selectedShapeExists={isSelectedShape}
         />
         <Canvas
           onDrop={moveShape}
@@ -162,6 +181,7 @@ const App: React.FC = () => {
               onClick={selectShape}
               resizable={true}
               onResize={resizeShape}
+              setSelectedShape={setSelectedShape}
             />
           ))}
         </Canvas>

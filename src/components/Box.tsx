@@ -15,6 +15,7 @@ interface BoxProps extends IShape {
     newX?: number,
     newY?: number
   ) => void;
+  setSelectedShape: (value: string | null) => void;
 }
 
 const Box: React.FC<BoxProps> = ({
@@ -30,6 +31,7 @@ const Box: React.FC<BoxProps> = ({
   rotation,
   resizable,
   onResize,
+  setSelectedShape,
 }) => {
   // drag to resize
   const [resizing, setResizing] = useState<boolean>(false);
@@ -40,6 +42,7 @@ const Box: React.FC<BoxProps> = ({
   const [initialX, setInitialX] = useState(x);
   const [initialY, setInitialY] = useState(y);
 
+  // handle differentiating between dragging and resizing
   const handleResizeMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation(); // prevent DnD logic
     if (resizable && isSelected) {
@@ -53,6 +56,7 @@ const Box: React.FC<BoxProps> = ({
     }
   };
 
+  // handle resizing
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (resizing) {
@@ -80,6 +84,7 @@ const Box: React.FC<BoxProps> = ({
       }
     };
 
+    // handle resize stop
     const handleMouseUp = (e: MouseEvent) => {
       if (resizing) {
         setResizing(false);
@@ -107,7 +112,7 @@ const Box: React.FC<BoxProps> = ({
     id,
   ]);
 
-  // drag logic
+  // handle relocation
   const [{ isDragging }, drag] = useDrag({
     type: "box",
     item: { id, x, y },
@@ -128,6 +133,7 @@ const Box: React.FC<BoxProps> = ({
   const baseClassName = "box";
   const shapeClassName = `${baseClassName} ${type}`;
 
+  // apply style changes
   const positionStyle = {
     left: `${x}px`,
     top: `${y}px`,
@@ -140,21 +146,29 @@ const Box: React.FC<BoxProps> = ({
     boxSizing: "border-box" as const,
   };
 
+  const handleOnClick = () => {
+    onClick(id);
+    setSelectedShape(id);
+  };
+
   return (
     <div
       ref={drag}
       className={`${shapeClassName} ${isSelected ? "selected" : ""}`}
       style={positionStyle}
       onMouseUp={() => {
+        handleOnClick();
         onClick(id);
         setResizing(false); // stop resizing on mouse-up
       }}
-      onClick={(e) => e.stopPropagation()}
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
     >
       {isSelected && resizable && (
         <>
           <div
-            className='bottom-right'
+            className='boxResizeHandle'
             onMouseDown={handleResizeMouseDown}
           />
         </>

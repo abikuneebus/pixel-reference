@@ -14,7 +14,7 @@
     background-color: rgba($color-shape, 70%);
 
     .top-left,
-    .bottom-right {
+    .boxResizeHandle {
       position: absolute;
       width: 10px;
       height: 10px;
@@ -27,16 +27,10 @@
       }
     }
 
-    .top-left {
-      top: -5px;
-      left: -5px;
-      cursor: nwse-resize;
-    }
-
-    .bottom-right {
+    .boxResizeHandle {
       bottom: -5px;
       right: -5px;
-      cursor: nwse-resize;
+      cursor: grab;
     }
   }
 }
