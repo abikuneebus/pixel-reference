@@ -14,7 +14,7 @@ const App: React.FC = () => {
   const [shapeWidth, setShapeWidth] = useState<number>(0);
   const [shapeHeight, setShapeHeight] = useState<number>(0);
   const [shapeRotation, setShapeRotation] = useState<number>(0);
-  const [isDarkMode, setIsDarkMode] = useState(true); // ToDo: set to true once style created
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   // light/dark mode control
   const toggleTheme = () => {
