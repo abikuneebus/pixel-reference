@@ -131,7 +131,6 @@ const Box: React.FC<BoxProps> = ({
     resizeDirection,
   ]);
 
-
   // handle relocation
   const [{ isDragging }, drag] = useDrag({
     type: "box",
@@ -157,8 +156,8 @@ const Box: React.FC<BoxProps> = ({
   const positionStyle = {
     left: `${x}px`,
     top: `${y}px`,
-    width: type !== "triangle" ? `${width}px` : undefined,
-    height: type !== "triangle" ? `${height}px` : undefined,
+    width: `${width}px`,
+    height: `${height}px`,
     border: isSelected ? "1.5px solid #434AEB8A" : "none", // selected shape indication
     opacity: isDragging ? 0.5 : 1,
     transform: `rotate(${rotation || 0}deg)`,

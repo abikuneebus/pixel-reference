@@ -6,7 +6,7 @@ export interface IShape {
   width: number;
   height: number;
   rotation?: number;
-  type: "rectangle" | "circle" | "triangle";
+  type: "rectangle" | "circle";
   resizable?: boolean;
 }
 

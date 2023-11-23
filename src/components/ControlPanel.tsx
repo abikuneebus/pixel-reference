@@ -6,7 +6,7 @@ interface ControlPanelProps {
   onGenerate: (
     width: number,
     height: number,
-    shape: "rectangle" | "circle" | "triangle"
+    shape: "rectangle" | "circle"
   ) => void;
   // manually entering dimensions/rotation
   onUpdateShape: (width: number, height: number, rotation: number) => void;
@@ -36,9 +36,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
 }) => {
   const [rotationInterval, setRotationInterval] =
     useState<NodeJS.Timeout | null>(null);
-  const [shape, setShape] = useState<"rectangle" | "circle" | "triangle">(
-    "rectangle"
-  );
+  const [shape, setShape] = useState<"rectangle" | "circle">("rectangle");
 
   // debounce hook
   const useDebounce = <F extends (...args: any[]) => any>(
@@ -62,11 +60,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
 
   // debounced shape generation
   const debouncedHandleGenerate = useDebounce(
-    (
-      width: number,
-      height: number,
-      shape: "rectangle" | "circle" | "triangle"
-    ) => {
+    (width: number, height: number, shape: "rectangle" | "circle") => {
       onGenerate(width, height, shape);
     },
     300
@@ -139,16 +133,14 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
   return (
     <div className='controlPanelContainer'>
       <div className='shapeSelectPnl'>
-        <select
-          value={shape}
-          onChange={(e) =>
-            setShape(e.target.value as "rectangle" | "circle" | "triangle")
-          }
-        >
-          <option value='rectangle'>Rectangle</option>
-          <option value='circle'>Circle</option>
-          {/* <option value='triangle'>Triangle</option> */}
-        </select>
+        <div
+          className={`rectangleBtn ${shape === "rectangle" ? "selected" : ""}`}
+          onClick={() => setShape("rectangle")}
+        ></div>
+        <div
+          className={`circleBtn ${shape === "circle" ? "selected" : ""}`}
+          onClick={() => setShape("circle")}
+        ></div>
       </div>
       <div className='numericalInputContainer'>
         <div className='dimensionsControlPnl'>
@@ -201,13 +193,13 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
           <label className='rotationLbl'>Rotation (°)</label>
           <div className='rotationControls'>
             <button
-              className='rotateIncrementBtn'
+              className='rotateDecrementBtn'
               onClick={(e) => {
                 e.stopPropagation();
-                incrementRotation();
+                decrementRotation();
               }}
               onMouseDown={() => {
-                startRotating(1);
+                startRotating(-1);
               }}
               onMouseUp={() => {
                 stopRotating();
@@ -216,8 +208,9 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
                 stopRotating();
               }}
             >
-              +
+              -
             </button>
+
             <input
               type='number'
               value={rotation}
@@ -236,13 +229,13 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
               }}
             />
             <button
-              className='rotateDecrementBtn'
+              className='rotateIncrementBtn'
               onClick={(e) => {
                 e.stopPropagation();
-                decrementRotation();
+                incrementRotation();
               }}
               onMouseDown={() => {
-                startRotating(-1);
+                startRotating(1);
               }}
               onMouseUp={() => {
                 stopRotating();
@@ -251,7 +244,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
                 stopRotating();
               }}
             >
-              -
+              +
             </button>
           </div>
         </div>

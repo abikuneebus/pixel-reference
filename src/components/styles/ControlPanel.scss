@@ -50,6 +50,30 @@
     text-align: center;
   }
 
+  .shapeSelectPnl {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    min-width: 125px;
+
+    .rectangleBtn {
+      width: 30px;
+      height: 30px;
+      border: $ltColorBorder 1px solid;
+      background-color: $colorBlue;
+      cursor: pointer;
+    }
+
+    .circleBtn {
+      width: 30px;
+      height: 30px;
+      border: $ltColorBorder 1px solid;
+      border-radius: $circleBR;
+      background-color: $colorBlue;
+      cursor: pointer;
+    }
+  }
+
   //# width, height, rotation controls
   .numericalInputContainer {
     display: flex;

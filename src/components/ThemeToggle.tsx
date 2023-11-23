@@ -1,7 +1,6 @@
 import React from "react";
 import "./styles/ThemeToggle.scss";
 
-
 interface ThemeToggleProps {
   onToggle: () => void;
   isDarkMode: boolean;

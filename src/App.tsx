@@ -85,7 +85,7 @@ const App: React.FC = () => {
   const handleGenerate = (
     width: number,
     height: number,
-    shape: "rectangle" | "circle" | "triangle"
+    shape: "rectangle" | "circle"
   ) => {
     const newShape: IShape = {
       id: `shape-${shapes.length + 1}`,
