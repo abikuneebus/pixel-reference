@@ -1,15 +1,62 @@
-// environment colors
-$color-grid-10: #c5c5c550;
-$color-grid-50: #75757560;
-$color-grid-100: #8f575770;
-$color-resize-handles: #1f3a50df;
-$color-tooltip-BG: #e0eff0df;
-$color-border-dk: #16162e;
+$shadeBlueGrayA: #131d23; // 131D23
+$shadeBlueGrayB: #19242a; //- 19242A
+$shadeBlueGrayC: #1f2b31; // 1F2B31
+$shadeBlueGrayD: #263238; //- 263238
+$shadeBlueGrayE: #2e3943; // 2E3943
+$shadeBlueGrayF: #313c45; // 313C45
+$shadeBlueGrayG: #37474f; //- 37474F
+$shadeBlueGrayH: #3c5059; // 3C5059
+$shadeBlueGrayI: #455a64; //- 455A64
+$shadeBlueGrayJ: #4c636f; // 4C636F
+$shadeBlueGrayK: #546e7a; //- 546E7A
+$shadeBlueGrayL: #577178; // 577178
+$shadeBlueGrayM: #607d8b; //- 607D8B
+$shadeBlueGrayN: #6e848f; // 6E848F
+$shadeBlueGrayO: #78909c; //- 78909C
+$shadeBlueGrayP: #84959a; // 84959A
+$shadeBlueGrayQ: #90a4ae; //- 90A4AE
+$shadeBlueGrayR: #a8b7bd; // A8B7BD
+$shadeBlueGrayS: #b0bec5; //- B0BEC5
+$shadeBlueGrayT: #cfd8dc; // CFD8DC
+$shadeBlueGrayU: #d4e0e6; //- D4E0E6
+$shadeBlueGrayV: #dee4e7; // DEE4E7
+$shadeBlueGrayW: #e6ebee; //- E6EBEE
+$shadeBlueGrayX: #eceff1; // ECEFF1
+$shadeBlueGrayY: #f2f5f7; //- F2F5F7
+$shadeBlueGrayZ: #f8fafc; // F8FAFC
 
 // general colors
-$color-dk-blue: #002244;
-$color-blue: #00abee;
-$color-lt-blue: #6688aa;
-$color-red: #ab1209;
-$color-yellow: #bbbb00;
-$color-green: #009901;
+$colorDkBlue: #002244;
+$colorBlue: #00abee;
+$colorLtBlue: #6688aa;
+$colorRed: #ab1209;
+$colorYellow: #bbbb00;
+$colorGreen: #009901;
+
+// environment colors
+
+// light-mode
+$ltColorBackground: #eceff1;
+$ltColorInput: #eff3ff;
+$ltColorGrid10: #c5c5c550;
+$ltColorGrid50: #75757560;
+$ltColorGrid100: #8f575770;
+$ltColorResizeHandles: #1f3a50df;
+$ltColorBorder: #16162e;
+$ltColorShape: #2039f6df;
+$ltColorBtn: #eceff1;
+$ltColorBtnTxt: #2e3943;
+
+// dark-mode
+$dkColorBackground: #263238;
+$dkColorGrid10: #e5e5e550;
+$dkColorGrid50: #bfbfbf60;
+$dkColorGrid100: #bf978350;
+$dkColorResizeHandles: #78909c;
+$dkColorBorder: #b0bec5;
+$dkColorShape: #bf94e4;
+$dkColorBtn: #37474f;
+$dkColorInput: #2e3943;
+
+// units
+$circleBR: 50%;

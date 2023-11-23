@@ -1,12 +1,36 @@
-.control-panel {
+@import "variables";
+
+//# component
+.controlPanelContainer {
   display: flex;
+  flex-direction: row;
   height: 8vh;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  max-width: 700px;
+  width: 95%;
+  justify-content: space-around;
+  align-items: baseline;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 50px 20px 0 20px;
+
+  button,
+  select {
+    background-color: $ltColorBtn;
+    color: $ltColorBtnTxt;
+    border: 2px solid darken($ltColorBtn, 10%);
+    border-radius: 8px;
+    padding: 0.5em 1em;
+    font-size: 0.85em;
+    text-align: center;
+    align-self: center; //! makes select shorter
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  input {
+    background-color: $ltColorInput;
+  }
 
   input::-webkit-inner-spin-button,
   input::-webkit-outer-spin-button {
@@ -26,66 +50,100 @@
     text-align: center;
   }
 
-  //* controls used for shape generation
-  .generation {
-    width: 100%;
-    padding-bottom: 1em;
-    justify-content: center;
+  .shapeSelectPnl {
+    display: flex;
+    align-self: flex-end;
+    flex-direction: row;
+    justify-content: space-between;
+    min-width: 125px;
 
-    form {
+    .rectangleBtn {
+      width: 30px;
+      height: 30px;
+      border: $ltColorBorder 1px solid;
+      background-color: $colorBlue;
+      cursor: pointer;
+    }
+
+    .circleBtn {
+      width: 30px;
+      height: 30px;
+      border: $ltColorBorder 1px solid;
+      border-radius: $circleBR;
+      background-color: $colorBlue;
+      cursor: pointer;
+    }
+  }
+
+  //# width, height, rotation controls
+  .numericalInputContainer {
+    display: flex;
+    width: 60%;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-end;
+
+    //~ width and height controls only
+    .dimensionsControlPnl {
       display: flex;
-      gap: 10px;
+      width: 100%;
       justify-content: center;
-
-      select,
-      input,
-      button {
-        margin: 0 5px;
-      }
-
-      select,
-      button {
-        text-align: center;
-        height: 3em;
-        width: 6.25em;
-        align-self: center;
-        margin-top: 1em;
-      }
-
-      label {
+      form {
         display: flex;
-        flex-direction: column;
-        align-items: center;
+        gap: 10px; //! gives form elements breathing room
+        // justify-content: center; //! does nothing
 
-        input[type="number"] {
-          padding: 5px;
-          margin-top: 5px;
+        label {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
       }
+    }
+
+    //~ rotation controls only
+    .rotationControlPnl {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+
+      .rotationLbl {
+        margin-bottom: 5px;
+      }
+
+      .rotationControls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      input[type="number"] {
+        width: 2.5em;
+      }
 
       button {
+        margin: 0 10px;
+        // padding: 5px 20px;
         cursor: pointer;
       }
     }
   }
 
-  //* controls used for interacting with generated shapes
-  .adjustment {
+  // # create, delete buttons
+  .lifeCycleBtnsPnl {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-
-    // ToDo: style '+' & '-' buttons
-    // .rotateIncrementButton {
-    // }
-    // .rotateDecrementButton {
-    // }
+    flex-direction: column;
+    align-self: flex-start;
 
     button {
-      margin: 0 10px;
-      padding: 5px 20px;
-      cursor: pointer;
+      width: 7em;
+    }
+
+    .generateBtn {
+      margin-bottom: 2px;
+      
     }
   }
 }

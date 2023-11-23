@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./styles/ControlPanel.scss";
 
 interface ControlPanelProps {
@@ -6,8 +6,11 @@ interface ControlPanelProps {
   onGenerate: (
     width: number,
     height: number,
-    shape: "rectangle" | "circle" | "triangle"
+    shape: "rectangle" | "circle"
   ) => void;
+  // manually entering dimensions/rotation
+  onUpdateShape: (width: number, height: number, rotation: number) => void;
+  // using rotate buttons
   onRotate: (angleDelta: number) => void;
   width: number;
   height: number;
@@ -15,12 +18,13 @@ interface ControlPanelProps {
   setWidth: React.Dispatch<React.SetStateAction<number>>;
   setHeight: React.Dispatch<React.SetStateAction<number>>;
   setRotation: React.Dispatch<React.SetStateAction<number>>;
-  onClick: () => void;
   onDelete: () => void;
+  selectedShapeExists: boolean;
 }
 const ControlPanel: React.FC<ControlPanelProps> = ({
   onGenerate,
   onRotate,
+  onUpdateShape,
   width,
   height,
   rotation,
@@ -28,12 +32,61 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
   setHeight,
   setRotation,
   onDelete,
+  selectedShapeExists,
 }) => {
-  // initialize dimensions to 0
   const [rotationInterval, setRotationInterval] =
     useState<NodeJS.Timeout | null>(null);
-  const [shape, setShape] = useState<"rectangle" | "circle" | "triangle">(
-    "rectangle"
+  const [shape, setShape] = useState<"rectangle" | "circle">("rectangle");
+
+  // debounce hook
+  const useDebounce = <F extends (...args: any[]) => any>(
+    func: F,
+    delay: number
+  ) => {
+    const [debouncedFunc, setDebouncedFunc] = useState<
+      (...args: Parameters<F>) => void
+    >(() => func);
+
+    useEffect(() => {
+      const handler = setTimeout(() => setDebouncedFunc(() => func), delay);
+
+      return () => {
+        clearTimeout(handler);
+      };
+    }, [func, delay]);
+
+    return debouncedFunc;
+  };
+
+  // debounced shape generation
+  const debouncedHandleGenerate = useDebounce(
+    (width: number, height: number, shape: "rectangle" | "circle") => {
+      onGenerate(width, height, shape);
+    },
+    300
+  );
+
+  // key press handler
+  const handleKeyPress = useCallback(
+    (event: React.KeyboardEvent<HTMLInputElement>) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        if (selectedShapeExists) {
+          onUpdateShape(width, height, rotation);
+        } else {
+          debouncedHandleGenerate(width, height, shape);
+        }
+      }
+    },
+    [
+      width,
+      height,
+      rotation,
+      shape,
+      debouncedHandleGenerate,
+      onUpdateShape,
+      selectedShapeExists,
+    ]
   );
 
   // generates shape
@@ -42,7 +95,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
     onGenerate(width, height, shape);
   };
 
-  // handle rotation
+  // handles rotation using '+' & '-' buttons
   const startRotating = (angleDelta: number) => {
     if (!rotationInterval) {
       const interval = setInterval(() => {
@@ -59,80 +112,137 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
     }
   };
 
-  // 'onSubmit' calls 'handleSubmit', which calls 'onGenerate' with current state values
+  // Directly set width, height, and rotation
+  const setRotationDirectly = (newRotation: number) => {
+    setRotation(newRotation);
+    setLocalRotation(newRotation.toString());
+  };
+  const incrementRotation = () => setRotationDirectly(rotation + 1);
+  const decrementRotation = () => setRotationDirectly(rotation - 1);
+
+  const setWidthDirectly = (newWidth: number) => {
+    setWidth(newWidth);
+    setLocalWidth(newWidth.toString());
+  };
+
+  const setHeightDirectly = (newHeight: number) => {
+    setHeight(newHeight);
+    setLocalHeight(newHeight.toString());
+  };
+
+  // Handle blur events
+  // Update global state on blur or enter key press
+  const handleWidthBlur = () => {
+    const newValue = localWidth === "" ? 0 : Number(localWidth);
+    setWidthDirectly(newValue);
+  };
+
+  // Update global state on blur or enter key press
+  const handleHeightBlur = () => {
+    const newValue = localHeight === "" ? 0 : Number(localHeight);
+    setHeightDirectly(newValue);
+  };
+
+  // Update global state on blur or enter key press
+  const handleRotationBlur = () => {
+    const newValue = localRotation === "" ? 0 : Number(localRotation);
+    setRotationDirectly(newValue);
+  };
+
+  // Reset local state on focus
+  const handleWidthFocus = () => {
+    setLocalWidth("");
+  };
+
+  // Reset local state on focus
+  const handleHeightFocus = () => {
+    setLocalHeight("");
+  };
+
+  // Reset local state on focus
+  const handleRotationFocus = () => {
+    setLocalRotation("");
+  };
+
+  const [localWidth, setLocalWidth] = useState<string>(width.toString());
+  const [localHeight, setLocalHeight] = useState<string>(height.toString());
+  const [localRotation, setLocalRotation] = useState<string>(
+    rotation.toString()
+  );
+
+  // Handle input change events
+  const handleWidthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLocalWidth(e.target.value);
+  };
+
+  const handleHeightChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLocalHeight(e.target.value);
+  };
+
+  const handleRotationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLocalRotation(e.target.value);
+  };
+
+  useEffect(() => {
+    setLocalWidth(width.toString());
+    setLocalHeight(height.toString());
+    setLocalRotation(rotation.toString());
+  }, [width, height, rotation]);
+
+  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ↓↓↓  TSX  ↓↓↓  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
   return (
-    <div className='control-panel'>
-      <div className='generation'>
-        <form onSubmit={handleSubmit}>
-          <select
-            value={shape}
-            onChange={(e) =>
-              setShape(e.target.value as "rectangle" | "circle" | "triangle")
-            }
-          >
-            <option value='rectangle'>Rectangle</option>
-            <option value='circle'>Circle</option>
-            {/* <option value='triangle'>Triangle</option> */}
-          </select>
-          <label>
-            W (px):
-            {/* 'onChange' handler updates 'width' state with new values */}
-            <input
-              type='number'
-              value={width}
-              onChange={(e) =>
-                setWidth(e.target.value === "" ? 0 : Number(e.target.value))
-              }
-              onFocus={(e) => {
-                if (e.target.value === "0") {
-                  e.target.value = "";
-                }
-              }}
-              onBlur={(e) => {
-                if (e.target.value === "") {
-                  setWidth(0);
-                  e.target.value = "0";
-                }
-              }}
-            />
-          </label>
-          <label>
-            H (px):
-            {/* 'onChange' handler updates 'height' state with new values */}
-            <input
-              type='number'
-              value={height}
-              onChange={(e) =>
-                setHeight(e.target.value === "" ? 0 : Number(e.target.value))
-              }
-              onFocus={(e) => {
-                if (e.target.value === "0") {
-                  e.target.value = "";
-                }
-              }}
-              onBlur={(e) => {
-                if (e.target.value === "") {
-                  setHeight(0);
-                  e.target.value = "0";
-                }
-              }}
-            />
-          </label>
-          <button
-            type='submit'
-            onClick={(e) => e.stopPropagation()}
-          >
-            Generate
-          </button>
-        </form>
+    <div className='controlPanelContainer'>
+      <div className='shapeSelectPnl'>
+        <div
+          className={`rectangleBtn ${shape === "rectangle" ? "selected" : ""}`}
+          onClick={() => setShape("rectangle")}
+        ></div>
+        <div
+          className={`circleBtn ${shape === "circle" ? "selected" : ""}`}
+          onClick={() => setShape("circle")}
+        ></div>
       </div>
-      <div className='adjustment'>
-        <button>Lorem</button> {/* replace with feature */}
-        <div className='rotation-container'>
-          <div className='rotation'>
+      <div className='numericalInputContainer'>
+        <div className='dimensionsControlPnl'>
+          <form onSubmit={handleSubmit}>
+            <label className='dimensionsLbl widthLbl'>
+              W (px)
+              {/* 'onChange' handler updates 'width' state with new values */}
+              <input
+                type='number'
+                value={localWidth}
+                onChange={handleWidthChange}
+                onFocus={handleWidthFocus}
+                onBlur={handleWidthBlur}
+                onKeyDown={handleKeyPress}
+              />
+            </label>
+            <label className='dimensionsLbl heightLbl'>
+              H (px)
+              {/* 'onChange' handler updates 'height' state with new values */}
+              <input
+                type='number'
+                value={localHeight}
+                onChange={handleHeightChange}
+                onFocus={handleHeightFocus}
+                onBlur={handleHeightBlur}
+                onKeyDown={handleKeyPress}
+              />
+            </label>
+          </form>
+        </div>
+        <div className='rotationControlPnl'>
+          <label className='rotationLbl'>Rotation (°)</label>
+          <div className='rotationControls'>
             <button
-              className='rotateIncrementButton'
-              onClick={(e) => e.stopPropagation()}
+              className='rotateIncrementBtn'
+              onClick={(e) => {
+                e.stopPropagation();
+                incrementRotation();
+              }}
               onMouseDown={() => {
                 startRotating(1);
               }}
@@ -147,25 +257,18 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
             </button>
             <input
               type='number'
-              value={rotation}
-              onChange={(e) =>
-                setRotation(e.target.value === "" ? 0 : Number(e.target.value))
-              }
-              onFocus={(e) => {
-                if (e.target.value === "0") {
-                  e.target.value = "";
-                }
-              }}
-              onBlur={(e) => {
-                if (e.target.value === "") {
-                  setRotation(0);
-                  e.target.value = "0";
-                }
-              }}
+              value={localRotation}
+              onChange={handleRotationChange}
+              onFocus={handleRotationFocus}
+              onBlur={handleRotationBlur}
+              onKeyDown={handleKeyPress}
             />
             <button
-              className='rotateDecrementButton'
-              onClick={(e) => e.stopPropagation()}
+              className='rotateDecrementBtn'
+              onClick={(e) => {
+                e.stopPropagation();
+                decrementRotation();
+              }}
               onMouseDown={() => {
                 startRotating(-1);
               }}
@@ -179,10 +282,18 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
               -
             </button>
           </div>
-        </div>{" "}
-        {/*  */}
+        </div>
+      </div>
+      <div className='lifeCycleBtnsPnl'>
         <button
-          className='deleteButton'
+          className='generateBtn'
+          type='submit'
+          onClick={handleSubmit}
+        >
+          Generate
+        </button>
+        <button
+          className='deleteBtn'
           onClick={onDelete}
         >
           Delete

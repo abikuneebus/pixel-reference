@@ -2,40 +2,68 @@
 
 .box {
   position: absolute;
-  background-color: $color-lt-blue;
+  background-color: $ltColorShape;
   cursor: move;
 
   &.circle {
-    border-radius: 50%;
+    border-radius: $circleBR;
+  }
+
+  .mainContainer.dark & {
+    background-color: $dkColorShape;
   }
 
   &.selected {
     position: relative;
-    background-color: darken($color-lt-blue, 10%);
+    background-color: rgba($ltColorShape, 70%);
 
-    .top-left,
-    .bottom-right {
+    .mainContainer.dark & {
+      background-color: rgba($dkColorShape, 70%);
+    }
+
+    .topLeft,
+    .topRight,
+    .bottomRight,
+    .bottomLeft {
       position: absolute;
       width: 10px;
       height: 10px;
-      background-color: $color-resize-handles;
-      border-radius: 50%;
+      background-color: $ltColorResizeHandles;
+      border-radius: $circleBR;
 
       &:hover {
-        background-color: darken($color-resize-handles, 10%);
+        // ToDo: will this negatively impact app? (accuracy, scaling, rotation)
+        transform: scale(120%);
+        background-color: darken($ltColorResizeHandles, 10%);
+
+        .mainContainer.dark {
+          background-color: darken($dkColorResizeHandles, 10%);
+        }
       }
     }
 
-    .top-left {
+    .topLeft {
       top: -5px;
       left: -5px;
       cursor: nwse-resize;
     }
 
-    .bottom-right {
+    .topRight {
+      top: -5px;
+      right: -5px;
+      cursor: nesw-resize;
+    }
+
+    .bottomRight {
       bottom: -5px;
       right: -5px;
       cursor: nwse-resize;
+    }
+
+    .bottomLeft {
+      bottom: -5px;
+      left: -5px;
+      cursor: nesw-resize;
     }
   }
 }

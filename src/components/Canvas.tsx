@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDrop } from "react-dnd";
 import "./styles/Canvas.scss";
 
@@ -68,7 +68,18 @@ const Canvas: React.FC<CanvasProps> = ({
       }}
       onClick={() => setSelectedShape(null)}
     >
-      {children}
+      {React.Children.map(children, (child) => {
+        // Ensure the child is a valid React element
+        if (React.isValidElement(child)) {
+          // Clone the element with the additional prop
+          return React.cloneElement(child as React.ReactElement, {
+            setSelectedShape,
+          });
+        }
+        return child;
+      })}
+
+      {/* {children} */}
     </div>
   );
 };
