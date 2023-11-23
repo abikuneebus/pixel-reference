@@ -166,7 +166,7 @@ const Box: React.FC<BoxProps> = ({
   };
 
   const handleOnClick = () => {
-    onClick(id);
+    // onClick(id);
     setSelectedShape(id);
   };
 
@@ -177,7 +177,7 @@ const Box: React.FC<BoxProps> = ({
       style={positionStyle}
       onMouseUp={() => {
         handleOnClick();
-        onClick(id);
+        // onClick(id);
         setResizing(false); // stop resizing on mouse-up
       }}
       onClick={(e) => {

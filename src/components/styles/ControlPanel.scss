@@ -52,6 +52,7 @@
 
   .shapeSelectPnl {
     display: flex;
+    align-self: flex-end;
     flex-direction: row;
     justify-content: space-between;
     min-width: 125px;
@@ -135,5 +136,14 @@
     display: flex;
     flex-direction: column;
     align-self: flex-start;
+
+    button {
+      width: 7em;
+    }
+
+    .generateBtn {
+      margin-bottom: 2px;
+      
+    }
   }
 }
