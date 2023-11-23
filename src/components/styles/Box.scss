@@ -2,23 +2,23 @@
 
 .box {
   position: absolute;
-  background-color: $ltColorShape;
+  background-color: $ltThemeShape;
   cursor: move;
 
   &.circle {
-    border-radius: $circleBR;
+    border-radius: $borderRadiusCircle;
   }
 
   .mainContainer.dark & {
-    background-color: $dkColorShape;
+    background-color: $dkThemeShape;
   }
 
   &.selected {
     position: relative;
-    background-color: rgba($ltColorShape, 70%);
+    background-color: rgba($ltThemeShape, 70%);
 
     .mainContainer.dark & {
-      background-color: rgba($dkColorShape, 70%);
+      background-color: rgba($dkThemeShape, 70%);
     }
 
     .topLeft,
@@ -28,16 +28,16 @@
       position: absolute;
       width: 10px;
       height: 10px;
-      background-color: $ltColorResizeHandles;
-      border-radius: $circleBR;
+      background-color: $ltThemeResizeHandles;
+      border-radius: $borderRadiusCircle;
 
       &:hover {
         // ToDo: will this negatively impact app? (accuracy, scaling, rotation)
         transform: scale(120%);
-        background-color: darken($ltColorResizeHandles, 10%);
+        background-color: darken($ltThemeResizeHandles, 10%);
 
         .mainContainer.dark {
-          background-color: darken($dkColorResizeHandles, 10%);
+          background-color: darken($dkThemeResizeHandles, 10%);
         }
       }
     }

@@ -1,3 +1,6 @@
+//# colors
+
+// blue-gray spectrum
 $shadeBlueGrayA: #131d23; // 131D23
 $shadeBlueGrayB: #19242a; //- 19242A
 $shadeBlueGrayC: #1f2b31; // 1F2B31
@@ -25,38 +28,125 @@ $shadeBlueGrayX: #eceff1; // ECEFF1
 $shadeBlueGrayY: #f2f5f7; //- F2F5F7
 $shadeBlueGrayZ: #f8fafc; // F8FAFC
 
-// general colors
+// general
 $colorDkBlue: #002244;
+$colorMedBlue: #0076aa;
 $colorBlue: #00abee;
+$colorMedBlueDesat: desaturate(#0076aa, 70%);
+$colorBlueDesat: desaturate(#00abee, 70%);
 $colorLtBlue: #6688aa;
 $colorRed: #ab1209;
 $colorYellow: #bbbb00;
 $colorGreen: #009901;
 
-// environment colors
+//- environment colors
+// light-theme
+$ltThemeBG: #eceff1;
+$ltThemeInput: #eff3ff;
+$ltThemeGrid10: #c5c5c550;
+$ltThemeGrid50: #75757560;
+$ltThemeGrid100: #8f575770;
+$ltThemeResizeHandles: #1f3a50df;
+$ltThemeShape: #2039f6df;
+$ltThemeBtnBG: #eceff1;
+$ltThemeBtnBGTxt: #2e3943;
 
-// light-mode
-$ltColorBackground: #eceff1;
-$ltColorInput: #eff3ff;
-$ltColorGrid10: #c5c5c550;
-$ltColorGrid50: #75757560;
-$ltColorGrid100: #8f575770;
-$ltColorResizeHandles: #1f3a50df;
-$ltColorBorder: #16162e;
-$ltColorShape: #2039f6df;
-$ltColorBtn: #eceff1;
-$ltColorBtnTxt: #2e3943;
+// dark-theme
+$dkThemeBG: #263238;
+$dkThemeGrid10: #e5e5e550;
+$dkThemeGrid50: #bfbfbf60;
+$dkThemeGrid100: #bf978350;
+$dkThemeResizeHandles: #78909c;
+$dkThemeShape: #bf94e4;
+$dkThemeBtnBG: #37474f;
+$dkThemeInput: #2e3943;
 
-// dark-mode
-$dkColorBackground: #263238;
-$dkColorGrid10: #e5e5e550;
-$dkColorGrid50: #bfbfbf60;
-$dkColorGrid100: #bf978350;
-$dkColorResizeHandles: #78909c;
-$dkColorBorder: #b0bec5;
-$dkColorShape: #bf94e4;
-$dkColorBtn: #37474f;
-$dkColorInput: #2e3943;
+// theme-toggle
+$ltThemeToDkToggleBG: #eceff1;
+$ltThemeToDkToggleTxt: #2e3943;
+$ltThemeToDkToggleBGHvr: #37474f;
+$ltThemeToDkToggleTxtHvr: #90a4ae;
 
-// units
-$circleBR: 50%;
+$dkThemeToLtToggleBG: #37474f;
+$dkThemeToLtToggleTxt: #90a4ae;
+$dkThemeToLtToggleBGHvr: #37474f;
+$dkThemeToLtToggleTxtHvr: #90a4ae;
+
+// gradients
+$ltThemeLinearGrd: linear-gradient(to right, $shadeBlueGrayY, $shadeBlueGrayZ);
+$ltThemeRadialGrd: radial-gradient(circle, $shadeBlueGrayW, $shadeBlueGrayY);
+$ltThemeDiagGrd: linear-gradient(45deg, $shadeBlueGrayT, $shadeBlueGrayV);
+
+$circleShapeSelectedGrd: radial-gradient(circle, $colorBlue, $colorMedBlue);
+$circleShapeGrd: radial-gradient(circle, $colorBlueDesat, $colorMedBlueDesat);
+
+$rectangleShapeSelectedGrd: linear-gradient(
+  to right,
+  $colorBlue,
+  $colorMedBlue
+);
+$rectangleShapeGrd: linear-gradient(
+  to right,
+  $colorBlueDesat,
+  $colorMedBlueDesat
+);
+
+// fonts
+$fontSans: "Roboto", "PT Sans";
+$fontMono: "Roboto Mono";
+$fontSlab: "Roboto Slab";
+$fontSerif: "Playfair Display";
+$fontDisplayA: "Syne Mono";
+$fontDisplayB: "Philosopher";
+$fontDisplayC: "Share Tech Mono";
+$fontDisplayD: "Trade Winds";
+
+// borders
+$borderRadiusDefault: 4px;
+$borderRadiusCircle: 50%;
+$ltThemeBorderColor: #16162e;
+$dkThemeBorderColor: #b0bec5;
+
+// box shadow
+$boxShadowDefault: 0px 2px 4px rgba(0, 0, 0, 0.1);
+$boxShadowHover: 0px 4px 6px rgba(0, 0, 0, 0.1);
+
+// typography
+$fontSizeSmall: 12px;
+$fontSizeMedium: 12px;
+$fontSizeLarge: 12px;
+$lineHeightDefault: 1.5;
+
+// spacing
+$spacingUnit: 8px;
+$spacingSmall: $spacingUnit;
+$spacingMedium: 2 * $spacingUnit;
+$spacingLarge: 3 * $spacingUnit;
+
+// z-index
+$zIndexDropdown: 100;
+$zIndexModal: 200;
+$zIndexOverlay: 300;
+
+// other
+$maxWidthContainer: 1200px;
+$lineHeightButton: 1.2;
+
+/*
+DISPLAY:
+- "Philosopher" 400, 700, *400*, *700*
+- "Trade Winds"
+- "Share Tech Mono"
+- "Syne Mono"
+NORMAL SANS:
+- "PT Sans" 400, 700, *400*, *700*
+- "Roboto" 400, 600, 700, *400*
+SERIF:
+- "Playfair Display" 400, *600*
+
+MONO:
+- "Roboto Mono" 400, 500, 600, 700
+
+SLAB SERIF:
+- "Roboto Slab" 400, 700
+*/

@@ -1,4 +1,4 @@
-// ToDo: color button & text, style button, change font, remedy pushdown on ControlPanel
+@import "variables";
 
 .themeToggle {
   position: fixed;
@@ -6,7 +6,31 @@
   right: 10px;
   z-index: 10000;
 
-  // button {
-  //
-  // }
+  button {
+    background-color: $ltThemeDiagGrd;
+    color: $ltThemeToDkToggleTxt;
+    padding: 5px;
+    font-family: $fontDisplayD;
+    border-radius: 3px;
+    box-shadow: $boxShadowDefault;
+    border: $ltThemeBorderColor solid 1px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: -100%;
+      border: 2px solid #fff;
+      transition: all 0.3s ease;
+    }
+
+    &:hover::after {
+      left: 0;
+    }
+  }
 }
