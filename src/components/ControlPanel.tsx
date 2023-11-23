@@ -89,31 +89,97 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
     ]
   );
 
-  // handles directly input rotation value using input field
-  const handleRotationChange = (newAngle: number) => {
-    // set 0-359 range
-    if (newAngle < 0) {
-      newAngle = 359;
-    } else if (newAngle > 359) {
-      newAngle = 0;
-    }
-    setRotation(newAngle);
-  };
-
   // generates shape
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     onGenerate(width, height, shape);
   };
 
-  // handles rotation using '+' & '-' buttons
-  const startRotating = (angleDelta: number) => {
-    if (!rotationInterval) {
-      const interval = setInterval(() => {
-        onRotate(angleDelta);
-      }, 100); //! ToDo: tweak as needed
-      setRotationInterval(interval);
+  useEffect(() => {
+    setDisplayRotation(rotation.toString());
+  }, [rotation]);
+
+  const updateRotation = (angleDelta: number) => {
+    setRotation((currentRotation) => {
+      let newRotation = currentRotation + angleDelta;
+      // Adjust for the -180 to 180 range
+      if (newRotation > 180) {
+        newRotation -= 360;
+      } else if (newRotation < -180) {
+        newRotation += 360;
+      }
+      return newRotation;
+    });
+  };
+
+  //! ToDo: MOVE UP
+  const [lastUpdate, setLastUpdate] = useState({ width, height, rotation });
+
+  const [displayWidth, setDisplayWidth] = useState("");
+  const [displayHeight, setDisplayHeight] = useState("");
+  const [displayRotation, setDisplayRotation] = useState("");
+
+  // Handler for width input focus
+  const handleWidthFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (width === 0) {
+      setDisplayWidth(""); // Set display to empty if actual value is 0
     }
+  };
+
+  // Handler for width input change
+  const handleWidthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDisplayWidth(e.target.value); // Update display value
+    const newWidth = e.target.value === "" ? 0 : Number(e.target.value);
+    setWidth(newWidth); // Update actual value
+  };
+
+  // Handler for height input focus
+  const handleHeightFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (height === 0) {
+      setDisplayHeight(""); // Set display to empty if actual value is 0
+    }
+  };
+
+  // Handler for height input change
+  const handleHeightChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDisplayHeight(e.target.value); // Update display value
+    const newHeight = e.target.value === "" ? 0 : Number(e.target.value);
+    setHeight(newHeight); // Update actual value
+  };
+
+  // Handler for rotation input focus
+  const handleRotationFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (rotation === 0) {
+      setDisplayRotation(""); // Set display to empty if actual value is 0
+    }
+  };
+
+  // Handler for rotation input change
+  const handleRotationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDisplayRotation(e.target.value); // Update display value
+    const newRotation = e.target.value === "" ? 0 : Number(e.target.value);
+    setRotation(newRotation); // Update actual value
+  };
+
+  useEffect(() => {
+    if (
+      selectedShapeExists &&
+      (lastUpdate.width !== width ||
+        lastUpdate.height !== height ||
+        lastUpdate.rotation !== rotation)
+    ) {
+      onUpdateShape(width, height, rotation);
+      setLastUpdate({ width, height, rotation });
+    }
+  }, [rotation, width, height, onUpdateShape, selectedShapeExists, lastUpdate]);
+
+  const startRotating = (angleDelta: number) => {
+    stopRotating(); // Clear any existing interval
+    setRotationInterval(
+      setInterval(() => {
+        updateRotation(angleDelta);
+      }, 100)
+    ); // Adjust time as needed
   };
 
   const stopRotating = () => {
@@ -122,9 +188,6 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
       setRotationInterval(null);
     }
   };
-
-  const incrementRotation = () => handleRotationChange(rotation + 1);
-  const decrementRotation = () => handleRotationChange(rotation - 1);
 
   // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ↓↓↓  TSX  ↓↓↓  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -150,20 +213,10 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
               {/* 'onChange' handler updates 'width' state with new values */}
               <input
                 type='number'
-                value={width}
                 onKeyDown={handleKeyPress}
-                onChange={(e) => setWidth(Number(e.target.value))}
-                onFocus={(e) => {
-                  if (e.target.value === "0") {
-                    e.target.value = "";
-                  }
-                }}
-                onBlur={(e) => {
-                  if (e.target.value === "") {
-                    setWidth(0);
-                    e.target.value = "0";
-                  }
-                }}
+                value={displayWidth}
+                onFocus={handleWidthFocus}
+                onChange={handleWidthChange}
               />
             </label>
             <label className='dimensionsLbl heightLbl'>
@@ -171,20 +224,10 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
               {/* 'onChange' handler updates 'height' state with new values */}
               <input
                 type='number'
-                value={height}
                 onKeyDown={handleKeyPress}
-                onChange={(e) => setHeight(Number(e.target.value))}
-                onFocus={(e) => {
-                  if (e.target.value === "0") {
-                    e.target.value = "";
-                  }
-                }}
-                onBlur={(e) => {
-                  if (e.target.value === "") {
-                    setHeight(0);
-                    e.target.value = "0";
-                  }
-                }}
+                value={displayHeight}
+                onFocus={handleHeightFocus}
+                onChange={handleHeightChange}
               />
             </label>
           </form>
@@ -194,10 +237,6 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
           <div className='rotationControls'>
             <button
               className='rotateDecrementBtn'
-              onClick={(e) => {
-                e.stopPropagation();
-                decrementRotation();
-              }}
               onMouseDown={() => {
                 startRotating(-1);
               }}
@@ -213,27 +252,13 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
 
             <input
               type='number'
-              value={rotation}
               onKeyDown={handleKeyPress}
-              onChange={(e) => setRotation(Number(e.target.value))}
-              onFocus={(e) => {
-                if (e.target.value === "0") {
-                  e.target.value = "";
-                }
-              }}
-              onBlur={(e) => {
-                if (e.target.value === "") {
-                  setRotation(0);
-                  e.target.value = "0";
-                }
-              }}
+              value={displayRotation}
+              onFocus={handleRotationFocus}
+              onChange={handleRotationChange}
             />
             <button
               className='rotateIncrementBtn'
-              onClick={(e) => {
-                e.stopPropagation();
-                incrementRotation();
-              }}
               onMouseDown={() => {
                 startRotating(1);
               }}
