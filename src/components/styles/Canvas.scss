@@ -5,34 +5,34 @@
   width: 98%;
   overflow: auto;
   margin: 10px auto 10px auto;
-  border: 1px solid $ltColorBorder;
+  border: 1px solid $ltThemeBorderColor;
   position: relative;
   background-size: 100px 100px, 100px 100px, 50px 50px, 50px 50px, 10px 10px,
     10px 10px;
   background-image:
 
     // light-red  @100px
-    linear-gradient(to right, $ltColorGrid100 1px, transparent 1px),
-    linear-gradient(to bottom, $ltColorGrid100 1px, transparent 1px),
+    linear-gradient(to right, $ltThemeGrid100 1px, transparent 1px),
+    linear-gradient(to bottom, $ltThemeGrid100 1px, transparent 1px),
     // dark-gray @50px
-    linear-gradient(to right, $ltColorGrid50 1px, transparent 1px),
-    linear-gradient(to bottom, $ltColorGrid50 1px, transparent 1px),
+    linear-gradient(to right, $ltThemeGrid50 1px, transparent 1px),
+    linear-gradient(to bottom, $ltThemeGrid50 1px, transparent 1px),
     // light-gray @10px
-    linear-gradient(to right, $ltColorGrid10 1px, transparent 1px),
-    linear-gradient(to bottom, $ltColorGrid10 1px, transparent 1px);
+    linear-gradient(to right, $ltThemeGrid10 1px, transparent 1px),
+    linear-gradient(to bottom, $ltThemeGrid10 1px, transparent 1px);
 
   .mainContainer.dark & {
-    border: 1px solid $dkColorBorder;
+    border: 1px solid $dkThemeBorderColor;
     background-image:
 
     // light-red  @100px
-      linear-gradient(to right, $dkColorGrid100 1px, transparent 1px),
-      linear-gradient(to bottom, $dkColorGrid100 1px, transparent 1px),
+      linear-gradient(to right, $dkThemeGrid100 1px, transparent 1px),
+      linear-gradient(to bottom, $dkThemeGrid100 1px, transparent 1px),
       // dark-gray @50px
-      linear-gradient(to right, $dkColorGrid50 1px, transparent 1px),
-      linear-gradient(to bottom, $dkColorGrid50 1px, transparent 1px),
+      linear-gradient(to right, $dkThemeGrid50 1px, transparent 1px),
+      linear-gradient(to bottom, $dkThemeGrid50 1px, transparent 1px),
       // light-gray @10px
-      linear-gradient(to right, $dkColorGrid10 1px, transparent 1px),
-      linear-gradient(to bottom, $dkColorGrid10 1px, transparent 1px);
+      linear-gradient(to right, $dkThemeGrid10 1px, transparent 1px),
+      linear-gradient(to bottom, $dkThemeGrid10 1px, transparent 1px);
   }
 }

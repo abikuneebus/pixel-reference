@@ -1,4 +1,26 @@
-// ToDo: color button & text, style button, change font, remedy pushdown on ControlPanel
+@import "variables";
+
+@keyframes themeToggleColorSwap {
+  from {
+    background-color: $ltThemeToDkToggleBG;
+    color: $ltThemeToDkToggleTxt;
+  }
+  to {
+    background-color: $dkThemeToLtToggleBG;
+    color: $dkThemeToLtToggleTxt;
+  }
+}
+
+@keyframes themeToggleColorSwapReverse {
+  from {
+    background-color: $dkThemeToLtToggleBG;
+    color: $dkThemeToLtToggleTxt;
+  }
+  to {
+    background-color: $ltThemeToDkToggleBG;
+    color: $ltThemeToDkToggleTxt;
+  }
+}
 
 .themeToggle {
   position: fixed;
@@ -6,7 +28,27 @@
   right: 10px;
   z-index: 10000;
 
-  // button {
-  //
-  // }
+  button {
+    background-color: $ltThemeToDkToggleBG;
+    color: $ltThemeToDkToggleTxt;
+    padding: 5px;
+    font-family: $fontDisplayC;
+    border-radius: 3px;
+    box-shadow: $boxShadowDefault;
+    border: $ltThemeBorderColor solid 1px;
+    cursor: pointer;
+    // Animation removed from here
+
+    &:hover {
+      animation: themeToggleColorSwap 1s ease forwards;
+    }
+  }
+}
+.mainContainer.dark .themeToggle button {
+  background-color: $dkThemeToLtToggleBG;
+  color: $dkThemeToLtToggleTxt;
+
+  &:hover {
+    animation: themeToggleColorSwapReverse 1s ease forwards;
+  }
 }

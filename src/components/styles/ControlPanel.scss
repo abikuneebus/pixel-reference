@@ -7,21 +7,27 @@
   height: 8vh;
   width: 95%;
   justify-content: space-around;
-  align-items: baseline;
+  align-items: flex-end;
   max-width: 900px;
   margin: 0 auto;
   padding: 50px 20px 0 20px;
 
-  button,
-  select {
-    background-color: $ltColorBtn;
-    color: $ltColorBtnTxt;
-    border: 2px solid darken($ltColorBtn, 10%);
+  button {
+    font-family: $fontMono;
+    background-color: $ltThemeBtnBG;
+    color: $ltThemeBtnTxt;
+    border: 1px solid $ltThemeBorderColor;
+    box-shadow: $boxShadowDefault;
     border-radius: 8px;
     padding: 0.5em 1em;
     font-size: 0.85em;
+    font-weight: 700;
     text-align: center;
-    align-self: center; //! makes select shorter
+    align-self: center;
+  }
+
+  label {
+    font-size: 14px;
   }
 
   button {
@@ -29,7 +35,7 @@
   }
 
   input {
-    background-color: $ltColorInput;
+    background-color: $ltThemeInput;
   }
 
   input::-webkit-inner-spin-button,
@@ -50,6 +56,18 @@
     text-align: center;
   }
 
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
   .shapeSelectPnl {
     display: flex;
     align-self: flex-end;
@@ -57,21 +75,69 @@
     justify-content: space-between;
     min-width: 125px;
 
+    .rectangleBtn,
+    .circleBtn {
+      &:hover {
+        animation: pulse 1s infinite;
+      }
+    }
+
     .rectangleBtn {
       width: 30px;
       height: 30px;
-      border: $ltColorBorder 1px solid;
-      background-color: $colorBlue;
+      border: $ltThemeBorderColor 1px solid;
       cursor: pointer;
+      background: 
+        /* Top shadow */ linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.2) 0%,
+          rgba(0, 0, 0, 0) 20%
+        ),
+        /* Right shadow */
+          linear-gradient(to left, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 20%),
+        /* Bottom shadow */
+          linear-gradient(to top, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 20%),
+        /* Left shadow */
+          linear-gradient(to right, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 20%),
+        /* Background color */ $rectangleShapeGrd;
+
+      &.selected {
+        // Apply the gradient for .selected
+        background: 
+          /* Top shadow */ linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.2) 0%,
+            rgba(0, 0, 0, 0) 20%
+          ),
+          /* Right shadow */
+            linear-gradient(
+              to left,
+              rgba(0, 0, 0, 0.2) 0%,
+              rgba(0, 0, 0, 0) 20%
+            ),
+          /* Bottom shadow */
+            linear-gradient(to top, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 20%),
+          /* Left shadow */
+            linear-gradient(
+              to right,
+              rgba(0, 0, 0, 0.2) 0%,
+              rgba(0, 0, 0, 0) 20%
+            ),
+          $rectangleShapeSelectedGrd;
+      }
     }
 
     .circleBtn {
       width: 30px;
       height: 30px;
-      border: $ltColorBorder 1px solid;
-      border-radius: $circleBR;
-      background-color: $colorBlue;
+      border: $ltThemeBorderColor 1px solid;
+      border-radius: $borderRadiusCircle;
+      background: $circleShapeGrd;
       cursor: pointer;
+
+      &.selected {
+        background: $circleShapeSelectedGrd;
+      }
     }
   }
 
@@ -80,7 +146,7 @@
     display: flex;
     width: 60%;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: left;
     align-items: flex-end;
 
     //~ width and height controls only
@@ -88,10 +154,11 @@
       display: flex;
       width: 100%;
       justify-content: center;
+      align-self: flex-end;
+
       form {
         display: flex;
-        gap: 10px; //! gives form elements breathing room
-        // justify-content: center; //! does nothing
+        gap: 10px;
 
         label {
           display: flex;
@@ -125,25 +192,62 @@
 
       button {
         margin: 0 10px;
-        // padding: 5px 20px;
         cursor: pointer;
+
+        &:hover {
+          transform: scale(1.05);
+          transition: transform 0.3s ease;
+        }
       }
     }
   }
 
   // # create, delete buttons
+
   .lifeCycleBtnsPnl {
     display: flex;
     flex-direction: column;
-    align-self: flex-start;
+    align-self: flex-end;
 
     button {
       width: 7em;
+      height: 2em;
+      padding: 0;
     }
 
     .generateBtn {
       margin-bottom: 2px;
-      
+      background-color: $colorGreen;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: lighten($colorGreen, 10%);
+      }
+    }
+    .deleteBtn {
+      background-color: $colorRed;
+      margin-bottom: 0;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: lighten($colorRed, 10%);
+      }
+    }
+  }
+}
+
+.mainContainer.dark {
+  button {
+    background: $dkThemeBtnBG;
+    color: $dkThemeBtnTxt;
+  }
+  label {
+    color: $dkThemeBtnTxt;
+  }
+
+  .lifeCycleBtnsPnl {
+    button {
+      color: $dkThemeBtnBrightTxt;
     }
   }
 }
