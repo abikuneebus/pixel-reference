@@ -4,10 +4,10 @@
 $shadeBlueGrayA: #131d23; // 131D23
 $shadeBlueGrayB: #19242a; //- 19242A
 $shadeBlueGrayC: #1f2b31; // 1F2B31
-$shadeBlueGrayD: #263238; //- 263238
+$shadeBlueGrayD: #263238; //* 263238 dkModeThemeToggle
 $shadeBlueGrayE: #2e3943; // 2E3943
 $shadeBlueGrayF: #313c45; // 313C45
-$shadeBlueGrayG: #37474f; //- 37474F
+$shadeBlueGrayG: #37474f; //* 37474F dkModeThemeToggle
 $shadeBlueGrayH: #3c5059; // 3C5059
 $shadeBlueGrayI: #455a64; //- 455A64
 $shadeBlueGrayJ: #4c636f; // 4C636F
@@ -20,10 +20,10 @@ $shadeBlueGrayP: #84959a; // 84959A
 $shadeBlueGrayQ: #90a4ae; //- 90A4AE
 $shadeBlueGrayR: #a8b7bd; // A8B7BD
 $shadeBlueGrayS: #b0bec5; //- B0BEC5
-$shadeBlueGrayT: #cfd8dc; // CFD8DC
+$shadeBlueGrayT: #cfd8dc; //* CFD8DC ltModeThemeToggle
 $shadeBlueGrayU: #d4e0e6; //- D4E0E6
 $shadeBlueGrayV: #dee4e7; // DEE4E7
-$shadeBlueGrayW: #e6ebee; //- E6EBEE
+$shadeBlueGrayW: #e6ebee; //* E6EBEE ltModeThemeToggle
 $shadeBlueGrayX: #eceff1; // ECEFF1
 $shadeBlueGrayY: #f2f5f7; //- F2F5F7
 $shadeBlueGrayZ: #f8fafc; // F8FAFC
@@ -49,7 +49,7 @@ $ltThemeGrid100: #8f575770;
 $ltThemeResizeHandles: #1f3a50df;
 $ltThemeShape: #2039f6df;
 $ltThemeBtnBG: #eceff1;
-$ltThemeBtnBGTxt: #2e3943;
+$ltThemeBtnTxt: #2e3943;
 
 // dark-theme
 $dkThemeBG: #263238;
@@ -60,22 +60,30 @@ $dkThemeResizeHandles: #78909c;
 $dkThemeShape: #bf94e4;
 $dkThemeBtnBG: #37474f;
 $dkThemeInput: #2e3943;
+$dkThemeBtnTxt: #d4e0e6;
+$dkThemeBtnBrightTxt: #f2f5f7dd;
 
 // theme-toggle
-$ltThemeToDkToggleBG: #eceff1;
+// light
+$ltThemeToDkToggleBG: #cfd8dc;
 $ltThemeToDkToggleTxt: #2e3943;
-$ltThemeToDkToggleBGHvr: #37474f;
-$ltThemeToDkToggleTxtHvr: #90a4ae;
-
+// hover
+// $ltThemeToDkToggleBGHvr: #37474f;
+// $ltThemeToDkToggleTxtHvr: #90a4ae;
+// dark
 $dkThemeToLtToggleBG: #37474f;
-$dkThemeToLtToggleTxt: #90a4ae;
-$dkThemeToLtToggleBGHvr: #37474f;
-$dkThemeToLtToggleTxtHvr: #90a4ae;
+$dkThemeToLtToggleTxt: #a8b7bd;
+// hover
+// $dkThemeToLtToggleBGHvr: #37474f;
+// $dkThemeToLtToggleTxtHvr: #90a4ae;
 
 // gradients
 $ltThemeLinearGrd: linear-gradient(to right, $shadeBlueGrayY, $shadeBlueGrayZ);
 $ltThemeRadialGrd: radial-gradient(circle, $shadeBlueGrayW, $shadeBlueGrayY);
-$ltThemeDiagGrd: linear-gradient(45deg, $shadeBlueGrayT, $shadeBlueGrayV);
+
+$ltThemeDiagGrd: linear-gradient(45deg, $shadeBlueGrayT, $shadeBlueGrayW);
+
+$dkThemeDiagGrd: linear-gradient(45deg, $shadeBlueGrayG, $shadeBlueGrayD);
 
 $circleShapeSelectedGrd: radial-gradient(circle, $colorBlue, $colorMedBlue);
 $circleShapeGrd: radial-gradient(circle, $colorBlueDesat, $colorMedBlueDesat);

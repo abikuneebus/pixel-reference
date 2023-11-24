@@ -15,7 +15,7 @@
   button {
     font-family: $fontMono;
     background-color: $ltThemeBtnBG;
-    color: $ltThemeBtnBGTxt;
+    color: $ltThemeBtnTxt;
     border: 1px solid $ltThemeBorderColor;
     box-shadow: $boxShadowDefault;
     border-radius: 8px;
@@ -232,6 +232,22 @@
       &:hover {
         background-color: lighten($colorRed, 10%);
       }
+    }
+  }
+}
+
+.mainContainer.dark {
+  button {
+    background: $dkThemeBtnBG;
+    color: $dkThemeBtnTxt;
+  }
+  label {
+    color: $dkThemeBtnTxt;
+  }
+
+  .lifeCycleBtnsPnl {
+    button {
+      color: $dkThemeBtnBrightTxt;
     }
   }
 }

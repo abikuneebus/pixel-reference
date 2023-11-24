@@ -1,5 +1,27 @@
 @import "variables";
 
+@keyframes themeToggleColorSwap {
+  from {
+    background-color: $ltThemeToDkToggleBG;
+    color: $ltThemeToDkToggleTxt;
+  }
+  to {
+    background-color: $dkThemeToLtToggleBG;
+    color: $dkThemeToLtToggleTxt;
+  }
+}
+
+@keyframes themeToggleColorSwapReverse {
+  from {
+    background-color: $dkThemeToLtToggleBG;
+    color: $dkThemeToLtToggleTxt;
+  }
+  to {
+    background-color: $ltThemeToDkToggleBG;
+    color: $ltThemeToDkToggleTxt;
+  }
+}
+
 .themeToggle {
   position: fixed;
   top: 10px;
@@ -7,30 +29,26 @@
   z-index: 10000;
 
   button {
-    background-color: $ltThemeDiagGrd;
+    background-color: $ltThemeToDkToggleBG;
     color: $ltThemeToDkToggleTxt;
     padding: 5px;
-    font-family: $fontDisplayD;
+    font-family: $fontDisplayC;
     border-radius: 3px;
     box-shadow: $boxShadowDefault;
     border: $ltThemeBorderColor solid 1px;
     cursor: pointer;
-    position: relative;
-    overflow: hidden;
+    // Animation removed from here
 
-    &::after {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: -100%;
-      border: 2px solid #fff;
-      transition: all 0.3s ease;
+    &:hover {
+      animation: themeToggleColorSwap 1s ease forwards;
     }
+  }
+}
+.mainContainer.dark .themeToggle button {
+  background-color: $dkThemeToLtToggleBG;
+  color: $dkThemeToLtToggleTxt;
 
-    &:hover::after {
-      left: 0;
-    }
+  &:hover {
+    animation: themeToggleColorSwapReverse 1s ease forwards;
   }
 }
