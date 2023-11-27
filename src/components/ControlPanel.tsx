@@ -38,6 +38,16 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
     useState<NodeJS.Timeout | null>(null);
   const [shape, setShape] = useState<"rectangle" | "circle">("rectangle");
 
+  // keyboard-only accessibility
+  const handleButtonKeyPress = (
+    e: React.KeyboardEvent<HTMLDivElement>,
+    action: () => void
+  ) => {
+    if (e.key === "Enter") {
+      action();
+    }
+  };
+
   // debounce hook
   const useDebounce = <F extends (...args: any[]) => any>(
     func: F,
@@ -206,10 +216,16 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
         <div
           className={`rectangleBtn ${shape === "rectangle" ? "selected" : ""}`}
           onClick={() => setShape("rectangle")}
+          onKeyDown={(e) =>
+            handleButtonKeyPress(e, () => setShape("rectangle"))
+          }
+          tabIndex={6}
         ></div>
         <div
           className={`circleBtn ${shape === "circle" ? "selected" : ""}`}
           onClick={() => setShape("circle")}
+          onKeyDown={(e) => handleButtonKeyPress(e, () => setShape("circle"))}
+          tabIndex={7}
         ></div>
       </div>
       <div className='numericalInputContainer'>
@@ -225,6 +241,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
                 onFocus={handleWidthFocus}
                 onBlur={handleWidthBlur}
                 onKeyDown={handleKeyPress}
+                tabIndex={1}
               />
             </label>
             <label className='dimensionsLbl heightLbl'>
@@ -237,6 +254,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
                 onFocus={handleHeightFocus}
                 onBlur={handleHeightBlur}
                 onKeyDown={handleKeyPress}
+                tabIndex={2}
               />
             </label>
           </form>
@@ -259,6 +277,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
               onMouseLeave={() => {
                 stopRotating();
               }}
+              tabIndex={4}
             >
               -
             </button>
@@ -269,6 +288,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
               onFocus={handleRotationFocus}
               onBlur={handleRotationBlur}
               onKeyDown={handleKeyPress}
+              tabIndex={3}
             />
             <button
               className='rotateIncrementBtn'
@@ -285,6 +305,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
               onMouseLeave={() => {
                 stopRotating();
               }}
+              tabIndex={5}
             >
               +
             </button>
@@ -296,12 +317,14 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
           className='generateBtn'
           type='submit'
           onClick={handleSubmit}
+          tabIndex={8}
         >
           Generate
         </button>
         <button
           className='deleteBtn'
           onClick={onDelete}
+          tabIndex={9}
         >
           Delete
         </button>
