@@ -32,7 +32,9 @@ const Box: React.FC<BoxProps> = ({
   resizable,
   onResize,
   setSelectedShape,
+  color,
 }) => {
+  console.log("Box color: ", color); // Debug log
   // drag to resize
   const [resizeDirection, setResizeDirection] = useState<string | null>(null);
   const [resizing, setResizing] = useState<boolean>(false);
@@ -163,6 +165,7 @@ const Box: React.FC<BoxProps> = ({
     transform: `rotate(${rotation || 0}deg)`,
     transformOrigin: "center",
     boxSizing: "border-box" as const,
+    backgroundColor: color,
   };
 
   const handleOnClick = () => {

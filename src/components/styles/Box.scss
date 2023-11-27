@@ -2,24 +2,25 @@
 
 .box {
   position: absolute;
-  background-color: $ltThemeShape;
+  // background-color: $ltThemeShape;
   cursor: move;
+  border: black 1px solid;
 
   &.circle {
     border-radius: $borderRadiusCircle;
   }
 
-  .mainContainer.dark & {
-    background-color: $dkThemeShape;
-  }
+  // .mainContainer.dark & {
+  //   background-color: $dkThemeShape;
+  // }
 
   &.selected {
     position: relative;
-    background-color: rgba($ltThemeShape, 70%);
+    // background-color: rgba($ltThemeShape, 70%);
 
-    .mainContainer.dark & {
-      background-color: rgba($dkThemeShape, 70%);
-    }
+    // .mainContainer.dark & {
+    //   background-color: rgba($dkThemeShape, 70%);
+    // }
 
     .topLeft,
     .topRight,

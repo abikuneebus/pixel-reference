@@ -15,6 +15,40 @@ const App: React.FC = () => {
   const [shapeHeight, setShapeHeight] = useState<number>(0);
   const [shapeRotation, setShapeRotation] = useState<number>(0);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [currentColorIndex, setCurrentColorIndex] = useState<number>(0);
+
+  const shapeColors = [
+    "#FF1744A0", // red
+    "#F48FB1A0", // pink
+    "#AD1457A0", // magenta
+    "#9C27B0A0", // purple
+    "#3F51B5A0", // blue
+    "#18FFFFA0", // light blue
+    "#03A9F4A0", // cyan
+    "#009688A0", // teal
+    "#38BE3CA0", // green
+    "#76FF03A0", // lime
+    "#FFFF00A0", // yellow
+    "#FFC107A0", // amber
+    "#FF9800A0", // orange
+    "#FF5722A0", // deep orange
+  ];
+
+  // const getRandomColor = () => {
+  //   const randomColorIndex = Math.floor(Math.random() * shapeColors.length);
+  //   return shapeColors[randomColorIndex];
+  // };
+
+  const getNextColor = () => {
+    const color = shapeColors[currentColorIndex];
+    setCurrentColorIndex((currentColorIndex + 1) % shapeColors.length);
+    return color;
+  };
+
+  useEffect(() => {
+    const randomColorIndex = Math.floor(Math.random() * shapeColors.length);
+    setCurrentColorIndex(randomColorIndex);
+  }, [shapeColors.length]);
 
   // light/dark mode control
   const toggleTheme = () => {
@@ -87,6 +121,8 @@ const App: React.FC = () => {
     height: number,
     shape: "rectangle" | "circle"
   ) => {
+    const color = getNextColor();
+    console.log("Generated color: ", color); // Debug log
     const newShape: IShape = {
       id: `shape-${shapes.length + 1}`,
       x: 50,
@@ -95,6 +131,7 @@ const App: React.FC = () => {
       height: height,
       type: shape,
       rotation: shapeRotation,
+      color: color,
     };
     setShapes([...shapes, newShape]);
   };
@@ -187,6 +224,7 @@ const App: React.FC = () => {
               height={shape.height}
               type={shape.type}
               rotation={shape.rotation}
+              color={shape.color}
               onMove={moveShape}
               isSelected={selectedShape === shape.id}
               onClick={selectShape}

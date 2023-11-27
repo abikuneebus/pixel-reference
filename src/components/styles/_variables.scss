@@ -1,4 +1,4 @@
-//# colors
+//# COLORS
 
 // blue-gray spectrum
 $shadeBlueGrayA: #131d23; // 131D23
@@ -57,7 +57,7 @@ $dkThemeGrid10: #e5e5e550;
 $dkThemeGrid50: #bfbfbf60;
 $dkThemeGrid100: #bf978350;
 $dkThemeResizeHandles: #78909c;
-$dkThemeShape: #bf94e4;
+$dkThemeShape: #bf94e4df;
 $dkThemeBtnBG: #37474f;
 $dkThemeInput: #2e3943;
 $dkThemeBtnTxt: #d4e0e6;
@@ -68,14 +68,14 @@ $dkThemeBtnBrightTxt: #f2f5f7dd;
 $ltThemeToDkToggleBG: #cfd8dc;
 $ltThemeToDkToggleTxt: #2e3943;
 // hover
-// $ltThemeToDkToggleBGHvr: #37474f;
-// $ltThemeToDkToggleTxtHvr: #90a4ae;
+// $ltThemeToDkToggleBGHvr: #37474F;
+// $ltThemeToDkToggleTxtHvr: #90A4AE;
 // dark
 $dkThemeToLtToggleBG: #37474f;
 $dkThemeToLtToggleTxt: #a8b7bd;
 // hover
-// $dkThemeToLtToggleBGHvr: #37474f;
-// $dkThemeToLtToggleTxtHvr: #90a4ae;
+// $dkThemeToLtToggleBGHvr: #37474F;
+// $dkThemeToLtToggleTxtHvr: #90A4AE;
 
 // gradients
 $ltThemeLinearGrd: linear-gradient(to right, $shadeBlueGrayY, $shadeBlueGrayZ);

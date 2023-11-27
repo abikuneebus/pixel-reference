@@ -8,6 +8,7 @@ export interface IShape {
   rotation?: number;
   type: "rectangle" | "circle";
   resizable?: boolean;
+  color?: string;
 }
 
 export interface DraggableShapeProps {
