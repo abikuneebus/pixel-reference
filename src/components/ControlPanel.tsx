@@ -67,27 +67,6 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
   );
 
   // key press handler
-  const handleKeyPress = useCallback(
-    (event: React.KeyboardEvent<HTMLInputElement>) => {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        if (selectedShapeExists) {
-          onUpdateShape(width, height, rotation);
-        } else {
-          debouncedHandleGenerate(width, height, shape);
-        }
-      }
-    },
-    [
-      width,
-      height,
-      rotation,
-      shape,
-      debouncedHandleGenerate,
-      onUpdateShape,
-      selectedShapeExists,
-    ]
-  );
 
   // generates shape
   const handleSubmit = (event: React.FormEvent) => {
@@ -189,6 +168,34 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
     setLocalRotation(rotation.toString());
   }, [width, height, rotation]);
 
+  const handleKeyPress = useCallback(
+    (event: React.KeyboardEvent<HTMLInputElement>) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        const widthValue = localWidth === "" ? 0 : Number(localWidth);
+        const heightValue = localHeight === "" ? 0 : Number(localHeight);
+        const rotationValue = localRotation === "" ? 0 : Number(localRotation);
+
+        if (widthValue > 0 && heightValue > 0) {
+          if (selectedShapeExists) {
+            onUpdateShape(widthValue, heightValue, rotationValue);
+          } else {
+            debouncedHandleGenerate(widthValue, heightValue, shape);
+          }
+        }
+      }
+    },
+    [
+      localWidth,
+      localHeight,
+      localRotation,
+      shape,
+      debouncedHandleGenerate,
+      onUpdateShape,
+      selectedShapeExists,
+    ]
+  );
+
   // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ↓↓↓  TSX  ↓↓↓  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -238,32 +245,6 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
           <label className='rotationLbl'>Rotation (°)</label>
           <div className='rotationControls'>
             <button
-              className='rotateIncrementBtn'
-              onClick={(e) => {
-                e.stopPropagation();
-                incrementRotation();
-              }}
-              onMouseDown={() => {
-                startRotating(1);
-              }}
-              onMouseUp={() => {
-                stopRotating();
-              }}
-              onMouseLeave={() => {
-                stopRotating();
-              }}
-            >
-              +
-            </button>
-            <input
-              type='number'
-              value={localRotation}
-              onChange={handleRotationChange}
-              onFocus={handleRotationFocus}
-              onBlur={handleRotationBlur}
-              onKeyDown={handleKeyPress}
-            />
-            <button
               className='rotateDecrementBtn'
               onClick={(e) => {
                 e.stopPropagation();
@@ -280,6 +261,32 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
               }}
             >
               -
+            </button>
+            <input
+              type='number'
+              value={localRotation}
+              onChange={handleRotationChange}
+              onFocus={handleRotationFocus}
+              onBlur={handleRotationBlur}
+              onKeyDown={handleKeyPress}
+            />
+            <button
+              className='rotateIncrementBtn'
+              onClick={(e) => {
+                e.stopPropagation();
+                incrementRotation();
+              }}
+              onMouseDown={() => {
+                startRotating(1);
+              }}
+              onMouseUp={() => {
+                stopRotating();
+              }}
+              onMouseLeave={() => {
+                stopRotating();
+              }}
+            >
+              +
             </button>
           </div>
         </div>
