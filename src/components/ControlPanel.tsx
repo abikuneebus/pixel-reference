@@ -38,6 +38,16 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
     useState<NodeJS.Timeout | null>(null);
   const [shape, setShape] = useState<"rectangle" | "circle">("rectangle");
 
+  // keyboard-only accessibility
+  const handleButtonKeyPress = (
+    e: React.KeyboardEvent<HTMLDivElement>,
+    action: () => void
+  ) => {
+    if (e.key === "Enter") {
+      action();
+    }
+  };
+
   // debounce hook
   const useDebounce = <F extends (...args: any[]) => any>(
     func: F,
@@ -67,27 +77,6 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
   );
 
   // key press handler
-  const handleKeyPress = useCallback(
-    (event: React.KeyboardEvent<HTMLInputElement>) => {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        if (selectedShapeExists) {
-          onUpdateShape(width, height, rotation);
-        } else {
-          debouncedHandleGenerate(width, height, shape);
-        }
-      }
-    },
-    [
-      width,
-      height,
-      rotation,
-      shape,
-      debouncedHandleGenerate,
-      onUpdateShape,
-      selectedShapeExists,
-    ]
-  );
 
   // generates shape
   const handleSubmit = (event: React.FormEvent) => {
@@ -189,6 +178,34 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
     setLocalRotation(rotation.toString());
   }, [width, height, rotation]);
 
+  const handleKeyPress = useCallback(
+    (event: React.KeyboardEvent<HTMLInputElement>) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        const widthValue = localWidth === "" ? 0 : Number(localWidth);
+        const heightValue = localHeight === "" ? 0 : Number(localHeight);
+        const rotationValue = localRotation === "" ? 0 : Number(localRotation);
+
+        if (widthValue > 0 && heightValue > 0) {
+          if (selectedShapeExists) {
+            onUpdateShape(widthValue, heightValue, rotationValue);
+          } else {
+            debouncedHandleGenerate(widthValue, heightValue, shape);
+          }
+        }
+      }
+    },
+    [
+      localWidth,
+      localHeight,
+      localRotation,
+      shape,
+      debouncedHandleGenerate,
+      onUpdateShape,
+      selectedShapeExists,
+    ]
+  );
+
   // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ↓↓↓  TSX  ↓↓↓  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -199,10 +216,16 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
         <div
           className={`rectangleBtn ${shape === "rectangle" ? "selected" : ""}`}
           onClick={() => setShape("rectangle")}
+          onKeyDown={(e) =>
+            handleButtonKeyPress(e, () => setShape("rectangle"))
+          }
+          tabIndex={6}
         ></div>
         <div
           className={`circleBtn ${shape === "circle" ? "selected" : ""}`}
           onClick={() => setShape("circle")}
+          onKeyDown={(e) => handleButtonKeyPress(e, () => setShape("circle"))}
+          tabIndex={7}
         ></div>
       </div>
       <div className='numericalInputContainer'>
@@ -218,6 +241,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
                 onFocus={handleWidthFocus}
                 onBlur={handleWidthBlur}
                 onKeyDown={handleKeyPress}
+                tabIndex={1}
               />
             </label>
             <label className='dimensionsLbl heightLbl'>
@@ -230,6 +254,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
                 onFocus={handleHeightFocus}
                 onBlur={handleHeightBlur}
                 onKeyDown={handleKeyPress}
+                tabIndex={2}
               />
             </label>
           </form>
@@ -237,32 +262,6 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
         <div className='rotationControlPnl'>
           <label className='rotationLbl'>Rotation (°)</label>
           <div className='rotationControls'>
-            <button
-              className='rotateIncrementBtn'
-              onClick={(e) => {
-                e.stopPropagation();
-                incrementRotation();
-              }}
-              onMouseDown={() => {
-                startRotating(1);
-              }}
-              onMouseUp={() => {
-                stopRotating();
-              }}
-              onMouseLeave={() => {
-                stopRotating();
-              }}
-            >
-              +
-            </button>
-            <input
-              type='number'
-              value={localRotation}
-              onChange={handleRotationChange}
-              onFocus={handleRotationFocus}
-              onBlur={handleRotationBlur}
-              onKeyDown={handleKeyPress}
-            />
             <button
               className='rotateDecrementBtn'
               onClick={(e) => {
@@ -278,8 +277,37 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
               onMouseLeave={() => {
                 stopRotating();
               }}
+              tabIndex={4}
             >
               -
+            </button>
+            <input
+              type='number'
+              value={localRotation}
+              onChange={handleRotationChange}
+              onFocus={handleRotationFocus}
+              onBlur={handleRotationBlur}
+              onKeyDown={handleKeyPress}
+              tabIndex={3}
+            />
+            <button
+              className='rotateIncrementBtn'
+              onClick={(e) => {
+                e.stopPropagation();
+                incrementRotation();
+              }}
+              onMouseDown={() => {
+                startRotating(1);
+              }}
+              onMouseUp={() => {
+                stopRotating();
+              }}
+              onMouseLeave={() => {
+                stopRotating();
+              }}
+              tabIndex={5}
+            >
+              +
             </button>
           </div>
         </div>
@@ -289,12 +317,14 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
           className='generateBtn'
           type='submit'
           onClick={handleSubmit}
+          tabIndex={8}
         >
           Generate
         </button>
         <button
           className='deleteBtn'
           onClick={onDelete}
+          tabIndex={9}
         >
           Delete
         </button>
