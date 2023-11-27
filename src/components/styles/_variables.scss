@@ -140,21 +140,6 @@ $zIndexOverlay: 300;
 $maxWidthContainer: 1200px;
 $lineHeightButton: 1.2;
 
-/*
-DISPLAY:
-- "Philosopher" 400, 700, *400*, *700*
-- "Trade Winds"
-- "Share Tech Mono"
-- "Syne Mono"
-NORMAL SANS:
-- "PT Sans" 400, 700, *400*, *700*
-- "Roboto" 400, 600, 700, *400*
-SERIF:
-- "Playfair Display" 400, *600*
-
-MONO:
-- "Roboto Mono" 400, 500, 600, 700
-
-SLAB SERIF:
-- "Roboto Slab" 400, 700
-*/
+// media queries
+$maxWidthMobile: 480px;
+$maxWidthTablet: 768px;

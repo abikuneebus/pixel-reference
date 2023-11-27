@@ -52,3 +52,14 @@
     animation: themeToggleColorSwapReverse 1s ease forwards;
   }
 }
+
+@media (max-width: $maxWidthMobile) {
+  .themeToggle {
+    top: unset;
+    right: unset;
+    bottom: 3px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0.8;
+  }
+}

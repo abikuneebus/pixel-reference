@@ -234,6 +234,48 @@
       }
     }
   }
+
+  @media (max-width: $maxWidthTablet) {
+    // =768px
+  }
+
+}
+@media (max-width: $maxWidthMobile) { 
+  .controlPanelContainer {  
+    margin: 0 auto;
+    flex-direction: column;
+    padding: 0;
+    height: vh;
+    align-items: center;
+
+    .shapeSelectPnl {
+      align-items: center;
+      justify-content: space-around;
+      align-self: center;
+      order: 2;
+    }
+
+    .numericalInputContainer {
+      align-items: center;
+      justify-content: center;
+      align-self: center;
+      order: 1;
+      button {
+        scale: 0.8;
+      }
+    }
+
+    .lifeCycleBtnsPnl {
+      width: 80%;
+      align-items: center;
+      justify-content: space-around;
+      align-self: center;
+      flex-direction: row;
+      order: 3
+    }
+  }
+
+
 }
 
 .mainContainer.dark {

@@ -13,4 +13,12 @@
   &.dark {
     background-color: $dkThemeBG;
   }
+
+    @media (max-width: $maxWidthTablet) {
+
+    }
+  
+    @media (max-width: $maxWidthMobile) {
+
+    }
 }
