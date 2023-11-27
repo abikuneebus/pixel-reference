@@ -1,11 +1,11 @@
 @import "variables";
 
-@keyframes pulse {
+@keyframes shapePulse {
   0% {
     transform: scale(1);
   }
   50% {
-    transform: scale(1.2);
+    transform: scale(1.015);
   }
   100% {
     transform: scale(1);
@@ -15,10 +15,9 @@
 .box {
   position: absolute;
   cursor: move;
-  border: black 1px solid;
 
   &:hover {
-    animation: pulse 1s 1;
+    animation: shapePulse 0.5s 1;
   }
 
   &.circle {
@@ -41,7 +40,6 @@
       &:hover {
         transform: scale(120%);
         background-color: darken($ltThemeResizeHandles, 10%);
-
       }
     }
 
@@ -81,7 +79,6 @@
     &:hover {
       transform: scale(120%);
       background-color: darken($dkThemeResizeHandles, 10%);
-
     }
   }
 }
