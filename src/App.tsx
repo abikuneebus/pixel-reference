@@ -18,20 +18,20 @@ const App: React.FC = () => {
   const [currentColorIndex, setCurrentColorIndex] = useState<number>(0);
 
   const shapeColors = [
-    "#FF1744A0", // red
-    "#F48FB1A0", // pink
-    "#AD1457A0", // magenta
-    "#9C27B0A0", // purple
-    "#3F51B5A0", // blue
-    "#18FFFFA0", // light blue
-    "#03A9F4A0", // cyan
-    "#009688A0", // teal
-    "#38BE3CA0", // green
-    "#76FF03A0", // lime
-    "#FFFF00A0", // yellow
-    "#FFC107A0", // amber
-    "#FF9800A0", // orange
-    "#FF5722A0", // deep orange
+    "rgba(255, 23, 68, 0.63)", // red
+    "rgba(244, 143, 177, 0.63)", // pink
+    "rgba(173, 20, 87, 0.63)", // magenta
+    "rgba(156, 39, 176, 0.63)", // purple
+    "rgba(63, 81, 181, 0.63)", // blue
+    "rgba(24, 255, 255, 0.63)", // light blue
+    "rgba(3, 169, 244, 0.63)", // cyan
+    "rgba(0, 150, 136, 0.63)", // teal
+    "rgba(56, 190, 60, 0.63)", // green
+    "rgba(118, 255, 3, 0.63)", // lime
+    "rgba(255, 255, 0, 0.63)", // yellow
+    "rgba(255, 193, 7, 0.63)", // amber
+    "rgba(255, 152, 0, 0.63)", // orange
+    "rgba(255, 87, 34, 0.63)", // deep orange
   ];
 
   // const getRandomColor = () => {

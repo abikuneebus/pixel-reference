@@ -1,26 +1,32 @@
 @import "variables";
 
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .box {
   position: absolute;
-  // background-color: $ltThemeShape;
   cursor: move;
   border: black 1px solid;
+
+  &:hover {
+    animation: pulse 1s 1;
+  }
 
   &.circle {
     border-radius: $borderRadiusCircle;
   }
 
-  // .mainContainer.dark & {
-  //   background-color: $dkThemeShape;
-  // }
-
   &.selected {
     position: relative;
-    // background-color: rgba($ltThemeShape, 70%);
-
-    // .mainContainer.dark & {
-    //   background-color: rgba($dkThemeShape, 70%);
-    // }
 
     .topLeft,
     .topRight,
@@ -33,13 +39,9 @@
       border-radius: $borderRadiusCircle;
 
       &:hover {
-        // ToDo: will this negatively impact app? (accuracy, scaling, rotation)
         transform: scale(120%);
         background-color: darken($ltThemeResizeHandles, 10%);
 
-        .mainContainer.dark {
-          background-color: darken($dkThemeResizeHandles, 10%);
-        }
       }
     }
 
@@ -65,6 +67,21 @@
       bottom: -5px;
       left: -5px;
       cursor: nesw-resize;
+    }
+  }
+}
+
+.mainContainer.dark {
+  .topLeft,
+  .topRight,
+  .bottomRight,
+  .bottomLeft {
+    background-color: $dkThemeResizeHandles;
+
+    &:hover {
+      transform: scale(120%);
+      background-color: darken($dkThemeResizeHandles, 10%);
+
     }
   }
 }

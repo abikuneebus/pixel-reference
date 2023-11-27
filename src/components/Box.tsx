@@ -45,6 +45,24 @@ const Box: React.FC<BoxProps> = ({
   const [initialX, setInitialX] = useState(x);
   const [initialY, setInitialY] = useState(y);
 
+  const increaseOpacity = (
+    color: string | undefined,
+    amount: number
+  ): string => {
+    if (!color) {
+      return "rgba(32, 57, 246, 0.87)"; // Example fallback color
+    }
+
+    const colorParts = color.match(/[\d.]+/g);
+    if (colorParts && colorParts.length === 4) {
+      const increasedAlpha = Math.min(1, parseFloat(colorParts[3]) + amount);
+      return `rgba(${colorParts[0]}, ${colorParts[1]}, ${colorParts[2]}, ${increasedAlpha})`;
+    }
+    return color;
+  };
+
+  const displayColor = isSelected ? increaseOpacity(color, 0.2) : color;
+
   // handle differentiating between dragging and resizing
   const handleResizeMouseDown = (
     e: React.MouseEvent<HTMLDivElement>,
@@ -165,7 +183,7 @@ const Box: React.FC<BoxProps> = ({
     transform: `rotate(${rotation || 0}deg)`,
     transformOrigin: "center",
     boxSizing: "border-box" as const,
-    backgroundColor: color,
+    backgroundColor: displayColor,
   };
 
   const handleOnClick = () => {
