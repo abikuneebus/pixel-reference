@@ -9,6 +9,7 @@ export interface IShape {
   type: "rectangle" | "circle";
   resizable?: boolean;
   color?: string;
+  zIndex?: number;
 }
 
 export interface DraggableShapeProps {

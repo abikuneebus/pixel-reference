@@ -16,6 +16,7 @@ interface BoxProps extends IShape {
     newY?: number
   ) => void;
   setSelectedShape: (value: string | null) => void;
+  zIndex?: number;
 }
 
 const Box: React.FC<BoxProps> = ({
@@ -33,6 +34,7 @@ const Box: React.FC<BoxProps> = ({
   onResize,
   setSelectedShape,
   color,
+  zIndex,
 }) => {
   // drag to resize
   const [resizeDirection, setResizeDirection] = useState<string | null>(null);
@@ -183,10 +185,12 @@ const Box: React.FC<BoxProps> = ({
     transformOrigin: "center",
     boxSizing: "border-box" as const,
     backgroundColor: displayColor,
+    zIndex: zIndex,
   };
 
   const handleOnClick = () => {
-    setSelectedShape(id);
+    // setSelectedShape(id);
+    onClick(id);
   };
 
   return (
