@@ -73,7 +73,6 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
     300
   );
 
-
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     onGenerate(width, height, shape);

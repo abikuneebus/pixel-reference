@@ -16,7 +16,7 @@ const App: React.FC = () => {
   const [shapeRotation, setShapeRotation] = useState<number>(0);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [currentColorIndex, setCurrentColorIndex] = useState<number>(0);
-  
+  const [topZIndex, setTopZIndex] = useState<number>(0);
 
   const shapeColors = [
     "rgba(255, 23, 68, 0.63)", // red
@@ -127,12 +127,21 @@ const App: React.FC = () => {
       type: shape,
       rotation: shapeRotation,
       color: color,
+      zIndex: 0,
     };
     setShapes([...shapes, newShape]);
   };
 
+  // selects shape for adjustment, brings to top
   const selectShape = (id: string) => {
     setSelectedShape(id);
+    const newZIndex = topZIndex + 1;
+    setTopZIndex(newZIndex);
+    setShapes((prevShapes) =>
+      prevShapes.map((shape) =>
+        shape.id === id ? { ...shape, zIndex: newZIndex } : shape
+      )
+    );
   };
 
   const rotateShape = useCallback(
@@ -226,6 +235,7 @@ const App: React.FC = () => {
               resizable={true}
               onResize={resizeShape}
               setSelectedShape={setSelectedShape}
+              zIndex={shape.zIndex}
             />
           ))}
         </Canvas>
