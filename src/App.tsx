@@ -118,6 +118,8 @@ const App: React.FC = () => {
     shape: "rectangle" | "circle"
   ) => {
     const color = getNextColor();
+    // new shapes generate on top of old shapes
+    const newZIndex = topZIndex + 1;
     const newShape: IShape = {
       id: `shape-${shapes.length + 1}`,
       x: 50,
@@ -127,8 +129,10 @@ const App: React.FC = () => {
       type: shape,
       rotation: shapeRotation,
       color: color,
-      zIndex: 0,
+      zIndex: newZIndex,
     };
+    // ensure future selected shapes rise to top
+    setTopZIndex(newZIndex);
     setShapes([...shapes, newShape]);
   };
 
