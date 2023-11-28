@@ -2,6 +2,7 @@
 
 .mainContainer {
   display: flex;
+  box-sizing: border-box;
   flex-direction: column;
   height: 100vh;
   overflow: hidden;
@@ -14,11 +15,9 @@
     background-color: $dkThemeBG;
   }
 
-    @media (max-width: $maxWidthTablet) {
+  @media (max-width: $maxWidthTablet) {
+  }
 
-    }
-  
-    @media (max-width: $maxWidthMobile) {
-
-    }
+  @media (max-width: $maxWidthMobileMed) {
+  }
 }

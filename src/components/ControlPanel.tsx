@@ -2,15 +2,12 @@ import React, { useCallback, useEffect, useState } from "react";
 import "./styles/ControlPanel.scss";
 
 interface ControlPanelProps {
-  // allows ControlPanel to pass width, height, & shape up to parent component
   onGenerate: (
     width: number,
     height: number,
     shape: "rectangle" | "circle"
   ) => void;
-  // manually entering dimensions/rotation
   onUpdateShape: (width: number, height: number, rotation: number) => void;
-  // using rotate buttons
   onRotate: (angleDelta: number) => void;
   width: number;
   height: number;
@@ -76,9 +73,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
     300
   );
 
-  // key press handler
 
-  // generates shape
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     onGenerate(width, height, shape);
@@ -89,7 +84,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
     if (!rotationInterval) {
       const interval = setInterval(() => {
         onRotate(angleDelta);
-      }, 100); //! ToDo: tweak as needed
+      }, 100);
       setRotationInterval(interval);
     }
   };
@@ -101,7 +96,6 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
     }
   };
 
-  // Directly set width, height, and rotation
   const setRotationDirectly = (newRotation: number) => {
     setRotation(newRotation);
     setLocalRotation(newRotation.toString());
@@ -119,36 +113,29 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
     setLocalHeight(newHeight.toString());
   };
 
-  // Handle blur events
-  // Update global state on blur or enter key press
   const handleWidthBlur = () => {
     const newValue = localWidth === "" ? 0 : Number(localWidth);
     setWidthDirectly(newValue);
   };
 
-  // Update global state on blur or enter key press
   const handleHeightBlur = () => {
     const newValue = localHeight === "" ? 0 : Number(localHeight);
     setHeightDirectly(newValue);
   };
 
-  // Update global state on blur or enter key press
   const handleRotationBlur = () => {
     const newValue = localRotation === "" ? 0 : Number(localRotation);
     setRotationDirectly(newValue);
   };
 
-  // Reset local state on focus
   const handleWidthFocus = () => {
     setLocalWidth("");
   };
 
-  // Reset local state on focus
   const handleHeightFocus = () => {
     setLocalHeight("");
   };
 
-  // Reset local state on focus
   const handleRotationFocus = () => {
     setLocalRotation("");
   };
@@ -159,7 +146,6 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
     rotation.toString()
   );
 
-  // Handle input change events
   const handleWidthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLocalWidth(e.target.value);
   };
@@ -206,12 +192,11 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
     ]
   );
 
-  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ↓↓↓  TSX  ↓↓↓  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
   return (
     <div className='controlPanelContainer'>
+      <div className='siteLogoContainer'>
+        <label className='siteLogo'>Pixel Reference Utility</label>
+      </div>
       <div className='shapeSelectPnl'>
         <div
           className={`rectangleBtn ${shape === "rectangle" ? "selected" : ""}`}
@@ -230,33 +215,38 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
       </div>
       <div className='numericalInputContainer'>
         <div className='dimensionsControlPnl'>
-          <form onSubmit={handleSubmit}>
-            <label className='dimensionsLbl widthLbl'>
-              W (px)
-              {/* 'onChange' handler updates 'width' state with new values */}
-              <input
-                type='number'
-                value={localWidth}
-                onChange={handleWidthChange}
-                onFocus={handleWidthFocus}
-                onBlur={handleWidthBlur}
-                onKeyDown={handleKeyPress}
-                tabIndex={1}
-              />
-            </label>
-            <label className='dimensionsLbl heightLbl'>
-              H (px)
-              {/* 'onChange' handler updates 'height' state with new values */}
-              <input
-                type='number'
-                value={localHeight}
-                onChange={handleHeightChange}
-                onFocus={handleHeightFocus}
-                onBlur={handleHeightBlur}
-                onKeyDown={handleKeyPress}
-                tabIndex={2}
-              />
-            </label>
+          <form
+            className='flexForm'
+            onSubmit={handleSubmit}
+          >
+            <div className='formContainer'>
+              <label className='dimensionsLbl widthLbl'>
+                W (px)
+                <input
+                  type='number'
+                  value={localWidth}
+                  onChange={handleWidthChange}
+                  onFocus={handleWidthFocus}
+                  onBlur={handleWidthBlur}
+                  onKeyDown={handleKeyPress}
+                  tabIndex={1}
+                />
+              </label>
+            </div>
+            <div className='formContainer'>
+              <label className='dimensionsLbl heightLbl'>
+                H (px)
+                <input
+                  type='number'
+                  value={localHeight}
+                  onChange={handleHeightChange}
+                  onFocus={handleHeightFocus}
+                  onBlur={handleHeightBlur}
+                  onKeyDown={handleKeyPress}
+                  tabIndex={2}
+                />
+              </label>
+            </div>
           </form>
         </div>
         <div className='rotationControlPnl'>

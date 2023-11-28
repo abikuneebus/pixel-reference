@@ -122,7 +122,6 @@ const App: React.FC = () => {
     shape: "rectangle" | "circle"
   ) => {
     const color = getNextColor();
-    console.log("Generated color: ", color); // Debug log
     const newShape: IShape = {
       id: `shape-${shapes.length + 1}`,
       x: 50,

@@ -1,7 +1,20 @@
 @import "variables";
 
-//# component
+@keyframes btnPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+//* CONTROL-PANEL
 .controlPanelContainer {
+  flex: 1;
   display: flex;
   flex-direction: row;
   height: 8vh;
@@ -12,11 +25,33 @@
   margin: 0 auto;
   padding: 50px 20px 0 20px;
 
+  .siteLogoContainer {
+    position: fixed;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    padding: 10px 0;
+    text-align: center;
+  }
+
+  .siteLogo {
+    font-size: 24px;
+    text-shadow: $ltThemesiteLogoShadow;
+    font-family: $fontDisplayC;
+    color: $ltThemeSiteLogoTxt;
+  }
+
+  input {
+    background-color: $ltThemeInputBG;
+    color: $ltThemeInputTxt;
+    border: 1px solid $ltThemeBorder;
+  }
+
   button {
     font-family: $fontMono;
     background-color: $ltThemeBtnBG;
     color: $ltThemeBtnTxt;
-    border: 1px solid $ltThemeBorderColor;
+    border: 2px outset $ltThemeBtnBorder;
     box-shadow: $boxShadowDefault;
     border-radius: 8px;
     padding: 0.5em 1em;
@@ -32,10 +67,6 @@
 
   button {
     cursor: pointer;
-  }
-
-  input {
-    background-color: $ltThemeInput;
   }
 
   input::-webkit-inner-spin-button,
@@ -56,24 +87,14 @@
     text-align: center;
   }
 
-  @keyframes btnPulse {
-    0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.05);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-
+  //* SHAPE-SELECT
   .shapeSelectPnl {
     display: flex;
     align-self: flex-end;
     flex-direction: row;
     justify-content: space-between;
     min-width: 125px;
+    z-index: 1000;
 
     .rectangleBtn,
     .circleBtn {
@@ -82,42 +103,43 @@
       }
     }
 
+    //* RECTANGLE-BTN
     .rectangleBtn {
       width: 30px;
       height: 30px;
-      border: $ltThemeBorderColor 1px solid;
+      box-shadow: $boxShadowDefault;
+      border: 1px solid $ltThemeBtnBorder;
       cursor: pointer;
       background: 
-        /* Top shadow */ linear-gradient(
+        /* top */ linear-gradient(
           to bottom,
           rgba(0, 0, 0, 0.2) 0%,
           rgba(0, 0, 0, 0) 20%
         ),
-        /* Right shadow */
+        /* right */
           linear-gradient(to left, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 20%),
-        /* Bottom shadow */
+        /* bottom */
           linear-gradient(to top, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 20%),
-        /* Left shadow */
+        /* left */
           linear-gradient(to right, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 20%),
-        /* Background color */ $rectangleShapeGrd;
+        /* background */ $rectangleShapeGrd;
 
       &.selected {
-        // Apply the gradient for .selected
         background: 
-          /* Top shadow */ linear-gradient(
+          /* top */ linear-gradient(
             to bottom,
             rgba(0, 0, 0, 0.2) 0%,
             rgba(0, 0, 0, 0) 20%
           ),
-          /* Right shadow */
+          /* right */
             linear-gradient(
               to left,
               rgba(0, 0, 0, 0.2) 0%,
               rgba(0, 0, 0, 0) 20%
             ),
-          /* Bottom shadow */
+          /* bottom */
             linear-gradient(to top, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 20%),
-          /* Left shadow */
+          /* left */
             linear-gradient(
               to right,
               rgba(0, 0, 0, 0.2) 0%,
@@ -127,10 +149,12 @@
       }
     }
 
+    //* CIRCLE BTN
     .circleBtn {
       width: 30px;
       height: 30px;
-      border: $ltThemeBorderColor 1px solid;
+      border: 1px solid $ltThemeBorder;
+      box-shadow: $boxShadowDefault;
       border-radius: $borderRadiusCircle;
       background: $circleShapeGrd;
       cursor: pointer;
@@ -141,7 +165,7 @@
     }
   }
 
-  //# width, height, rotation controls
+  //* NUMERICAL-INPUT
   .numericalInputContainer {
     display: flex;
     width: 60%;
@@ -149,7 +173,7 @@
     justify-content: left;
     align-items: flex-end;
 
-    //~ width and height controls only
+    //*  WIDTH & HEIGHT
     .dimensionsControlPnl {
       display: flex;
       width: 100%;
@@ -166,9 +190,15 @@
           align-items: center;
         }
       }
+      .widthContainer {
+        display: flex;
+      }
+      .heightContainer {
+        display: flex;
+      }
     }
 
-    //~ rotation controls only
+    //*  ROTATION
     .rotationControlPnl {
       display: flex;
       flex-direction: column;
@@ -191,9 +221,8 @@
       }
 
       button {
+        font-size: 12px;
         margin: 0 10px;
-        cursor: pointer;
-
         &:hover {
           transform: scale(1.05);
           transition: transform 0.3s ease;
@@ -202,8 +231,7 @@
     }
   }
 
-  // # create, delete buttons
-
+  //* LIFECYCLE-BTNS
   .lifeCycleBtnsPnl {
     display: flex;
     flex-direction: column;
@@ -234,62 +262,281 @@
       }
     }
   }
+}
 
-  @media (max-width: $maxWidthTablet) {
-    // =768px
+//? DARK-MODE
+.mainContainer.dark {
+  .siteLogo {
+    text-shadow: $dkThemesiteLogoShadow;
   }
 
-}
-@media (max-width: $maxWidthMobile) { 
-  .controlPanelContainer {  
-    margin: 0 auto;
-    flex-direction: column;
-    padding: 0;
-    height: vh;
-    align-items: center;
+  input {
+    border: 1px solid $ltThemeBtnBorder;
+    background-color: $dkThemeInputBG;
+    color: $dkThemeInputTxt;
+    border: 1px ridged $dkThemeBorder;
+  }
 
+  label {
+    color: $dkThemeBtnTxt;
+  }
+
+  button {
+    background-color: $dkThemeBtnBG;
+    color: $dkThemeBtnTxt;
+    border: 1px ridged $dkThemeBorder;
+  }
+
+  //* LIFECYCLE-BTNS
+  .lifeCycleBtnsPnl {
+    button {
+      color: $dkThemeBtnTxt;
+    }
+    .generateBtn {
+      &:hover {
+        background-color: darken($colorGreen, 10%);
+      }
+    }
+    .deleteBtn {
+      &:hover {
+        background-color: darken($colorRed, 10%);
+      }
+    }
+  }
+}
+
+//? MEDIA-QUERY: TABLET (width = 481px-768px)
+@media (min-width: $minWidthTablet) and (max-width: $maxWidthTablet) {
+  .controlPanelContainer {
+    .siteLogoContainer {
+      top: 5px;
+      .siteLogo {
+        font-size: 22px;
+      }
+    }
+    margin: 0 auto;
+    justify-content: flex-end;
+    flex-direction: column;
+    gap: 7px;
+    padding: 0;
+    height: 20vh;
+
+    //* SHAPE-SELECT
     .shapeSelectPnl {
       align-items: center;
-      justify-content: space-around;
+      transform: translateY(10px);
+      justify-content: space-between;
       align-self: center;
-      order: 2;
+      order: 1;
+      width: 75vw;
+      .rectangleBtn,
+      .circleBtn {
+        transform: scale(0.9);
+      }
     }
 
+    //* NUMERICAL-INPUT (W, H, & R)
     .numericalInputContainer {
       align-items: center;
       justify-content: center;
       align-self: center;
-      order: 1;
-      button {
-        scale: 0.8;
+      order: 2;
+      display: flex;
+      flex-direction: row;
+      width: 90vw;
+      label {
+        font-size: 12px;
+      }
+
+      //*  W & H
+      .dimensionsControlPnl {
+        input {
+          width: 35px;
+        }
+        //* R
+        .rotationControlPnl {
+          font-size: 10px;
+        }
+        form {
+          display: flex;
+          gap: 28px;
+
+          label {
+            align-items: unset;
+            justify-content: space-between;
+          }
+        }
       }
     }
 
+    //* LIFECYCLE-BTNS
     .lifeCycleBtnsPnl {
       width: 80%;
       align-items: center;
       justify-content: space-around;
       align-self: center;
       flex-direction: row;
-      order: 3
+      order: 4;
     }
   }
-
-
 }
 
-.mainContainer.dark {
-  button {
-    background: $dkThemeBtnBG;
-    color: $dkThemeBtnTxt;
-  }
-  label {
-    color: $dkThemeBtnTxt;
-  }
+//? MEDIA-QUERY: MEDIUM-MOBILE (width = 351px-480px)
+@media (min-width: $minWidthMobileMed) and (max-width: $maxWidthMobileMed) {
+  //* CONTROL-PANEL
+  .controlPanelContainer {
+    flex: 4;
+    .siteLogoContainer {
+      top: 5px;
+      .siteLogo {
+        font-size: 18px;
+      }
+    }
 
-  .lifeCycleBtnsPnl {
-    button {
-      color: $dkThemeBtnBrightTxt;
+    margin: 0 auto;
+    justify-content: flex-end;
+    flex-direction: column;
+    gap: 7px;
+    padding: 0;
+    height: 20vh;
+
+    //* SHAPE-SELECT
+    .shapeSelectPnl {
+      align-items: center;
+      justify-content: space-between;
+      align-self: center;
+      order: 1;
+      width: 75vw;
+
+      .rectangleBtn,
+      .circleBtn {
+        transform: scale(0.75);
+      }
+    }
+
+    //* NUMERICAL-INPUT (W, H, & R)
+    .numericalInputContainer {
+      align-items: center;
+      justify-content: center;
+      align-self: center;
+      order: 2;
+      display: flex;
+      flex-direction: row;
+      width: 90vw;
+      label {
+        font-size: 12px;
+      }
+
+      //*  W & H
+      .dimensionsControlPnl {
+        input {
+          width: 35px;
+        }
+        //* R
+        .rotationControlPnl {
+          font-size: 10px;
+        }
+        form {
+          display: flex;
+          gap: 28px;
+
+          label {
+            align-items: unset;
+            justify-content: space-between;
+          }
+        }
+      }
+    }
+
+    //* LIFECYCLE-BTNS
+    .lifeCycleBtnsPnl {
+      width: 80%;
+      align-items: center;
+      justify-content: space-around;
+      align-self: center;
+      flex-direction: row;
+      order: 4;
+    }
+  }
+}
+
+//? MEDIA-QUERY: SMALL-MOBILE (width < 350px)
+@media (max-width: $maxWidthMobileSmall) {
+  .controlPanelContainer {
+    flex: 2;
+    .siteLogo {
+      font-size: 10px;
+    }
+    .siteLogoContainer {
+      top: 0;
+      .siteLogo {
+        font-size: 18px;
+      }
+    }
+
+    margin: 0 auto;
+    justify-content: flex-end;
+    flex-direction: column;
+    gap: 7px;
+    padding: 0;
+    height: 20vh;
+
+    //* SHAPE-SELECT
+    .shapeSelectPnl {
+      align-items: center;
+      justify-content: space-between;
+      align-self: center;
+      order: 1;
+      width: 95vw;
+
+      .rectangleBtn,
+      .circleBtn {
+        transform: scale(0.5);
+      }
+    }
+
+    //* NUMERICAL-INPUT (W, H, & R)
+    .numericalInputContainer {
+      align-items: center;
+      justify-content: center;
+      align-self: center;
+      order: 2;
+      display: flex;
+      flex-direction: row;
+      width: 90vw;
+      label {
+        font-size: 12px;
+      }
+
+      //*  W & H
+      .dimensionsControlPnl {
+        input {
+          width: 35px;
+        }
+        //* R
+        .rotationControlPnl {
+          font-size: 10px;
+        }
+        form {
+          display: flex;
+          gap: 28px;
+
+          label {
+            align-items: unset;
+            justify-content: space-between;
+          }
+        }
+      }
+    }
+
+    //* LIFECYCLE-BTNS
+    .lifeCycleBtnsPnl {
+      width: 80%;
+      align-items: center;
+      justify-content: space-around;
+      align-self: center;
+      flex-direction: row;
+      order: 4;
     }
   }
 }

@@ -35,7 +35,7 @@
     font-family: $fontDisplayC;
     border-radius: 3px;
     box-shadow: $boxShadowDefault;
-    border: $ltThemeBorderColor solid 1px;
+    border: $ltThemeBorder solid 1px;
     cursor: pointer;
     // Animation removed from here
 
@@ -53,7 +53,7 @@
   }
 }
 
-@media (max-width: $maxWidthMobile) {
+@media (max-width: $maxWidthTablet) {
   .themeToggle {
     top: unset;
     right: unset;
