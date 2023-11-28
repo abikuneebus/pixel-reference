@@ -1,33 +1,5 @@
 //# COLORS
 
-// blue-gray spectrum
-$shadeBlueGrayA: #131d23; // 131D23
-$shadeBlueGrayB: #19242a; //- 19242A
-$shadeBlueGrayC: #1f2b31; // 1F2B31
-$shadeBlueGrayD: #263238; //* 263238 dkModeThemeToggle
-$shadeBlueGrayE: #2e3943; // 2E3943
-$shadeBlueGrayF: #313c45; // 313C45
-$shadeBlueGrayG: #37474f; //* 37474F dkModeThemeToggle
-$shadeBlueGrayH: #3c5059; // 3C5059
-$shadeBlueGrayI: #455a64; //- 455A64
-$shadeBlueGrayJ: #4c636f; // 4C636F
-$shadeBlueGrayK: #546e7a; //- 546E7A
-$shadeBlueGrayL: #577178; // 577178
-$shadeBlueGrayM: #607d8b; //- 607D8B
-$shadeBlueGrayN: #6e848f; // 6E848F
-$shadeBlueGrayO: #78909c; //- 78909C
-$shadeBlueGrayP: #84959a; // 84959A
-$shadeBlueGrayQ: #90a4ae; //- 90A4AE
-$shadeBlueGrayR: #a8b7bd; // A8B7BD
-$shadeBlueGrayS: #b0bec5; //- B0BEC5
-$shadeBlueGrayT: #cfd8dc; //* CFD8DC ltModeThemeToggle
-$shadeBlueGrayU: #d4e0e6; //- D4E0E6
-$shadeBlueGrayV: #dee4e7; // DEE4E7
-$shadeBlueGrayW: #e6ebee; //* E6EBEE ltModeThemeToggle
-$shadeBlueGrayX: #eceff1; // ECEFF1
-$shadeBlueGrayY: #f2f5f7; //- F2F5F7
-$shadeBlueGrayZ: #f8fafc; // F8FAFC
-
 // general
 $colorDkBlue: #002244;
 $colorMedBlue: #0076aa;
@@ -39,7 +11,6 @@ $colorRed: #ab1209;
 $colorYellow: #bbbb00;
 $colorGreen: #009901;
 
-//- environment colors
 // light-theme
 $ltThemeBG: #eceff1;
 $ltThemeInput: #eff3ff;
@@ -48,8 +19,11 @@ $ltThemeGrid50: #75757560;
 $ltThemeGrid100: #8f575770;
 $ltThemeResizeHandles: #1f3a50df;
 $ltThemeShape: #2039f6df;
-$ltThemeBtnBG: #eceff1;
+$ltThemeBtnBG: #dee4e7;
 $ltThemeBtnTxt: #2e3943;
+$ltThemeInputBG: #e6ebee;
+$ltThemeInputTxt: #131d23;
+$ltThemeSiteLogoTxt: #6688aaa0;
 
 // dark-theme
 $dkThemeBG: #131d23;
@@ -62,32 +36,19 @@ $dkThemeBtnBG: #37474f;
 $dkThemeInput: #2e3943;
 $dkThemeBtnTxt: #d4e0e6;
 $dkThemeBtnBrightTxt: #f2f5f7dd;
+$dkThemeInputBG: #1f2b31;
+$dkThemeInputTxt: #eceff1;
+$dkThemeSiteLogoTxt: #a5cbf1a0;
 
 // theme-toggle
-// light
 $ltThemeToDkToggleBG: #cfd8dc;
 $ltThemeToDkToggleTxt: #2e3943;
-// hover
-// $ltThemeToDkToggleBGHvr: #37474F;
-// $ltThemeToDkToggleTxtHvr: #90A4AE;
-// dark
 $dkThemeToLtToggleBG: #37474f;
 $dkThemeToLtToggleTxt: #a8b7bd;
-// hover
-// $dkThemeToLtToggleBGHvr: #37474F;
-// $dkThemeToLtToggleTxtHvr: #90A4AE;
 
-// gradients
-$ltThemeLinearGrd: linear-gradient(to right, $shadeBlueGrayY, $shadeBlueGrayZ);
-$ltThemeRadialGrd: radial-gradient(circle, $shadeBlueGrayW, $shadeBlueGrayY);
-
-$ltThemeDiagGrd: linear-gradient(45deg, $shadeBlueGrayT, $shadeBlueGrayW);
-
-$dkThemeDiagGrd: linear-gradient(45deg, $shadeBlueGrayG, $shadeBlueGrayD);
-
+// shape-select
 $circleShapeSelectedGrd: radial-gradient(circle, $colorBlue, $colorMedBlue);
 $circleShapeGrd: radial-gradient(circle, $colorBlueDesat, $colorMedBlueDesat);
-
 $rectangleShapeSelectedGrd: linear-gradient(
   to right,
   $colorBlue,
@@ -112,12 +73,18 @@ $fontDisplayD: "Trade Winds";
 // borders
 $borderRadiusDefault: 4px;
 $borderRadiusCircle: 50%;
-$ltThemeBorderColor: #16162e;
-$dkThemeBorderColor: #b0bec5;
+$ltThemeBorder: #16162e80;
+$ltThemeBtnBorder: #16162e40;
+$dkThemeBorder: #b0bec5a0;
+$dkThemeBtnBorder: #b0bec540;
 
-// box shadow
+// shadow
 $boxShadowDefault: 0px 2px 4px rgba(0, 0, 0, 0.1);
 $boxShadowHover: 0px 4px 6px rgba(0, 0, 0, 0.1);
+$boxShadowDark: 0px 2px 4px rgba(255, 255, 255, 0.1);
+$boxShadowHoverDark: 0px 4px 6px rgba(255, 255, 255, 0.1);
+$ltThemesiteLogoShadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+$dkThemesiteLogoShadow: 2px 2px 5px rgba(255, 255, 255, 0.2);
 
 // typography
 $fontSizeSmall: 12px;
@@ -140,21 +107,11 @@ $zIndexOverlay: 300;
 $maxWidthContainer: 1200px;
 $lineHeightButton: 1.2;
 
-/*
-DISPLAY:
-- "Philosopher" 400, 700, *400*, *700*
-- "Trade Winds"
-- "Share Tech Mono"
-- "Syne Mono"
-NORMAL SANS:
-- "PT Sans" 400, 700, *400*, *700*
-- "Roboto" 400, 600, 700, *400*
-SERIF:
-- "Playfair Display" 400, *600*
+// media queries
+$maxWidthTablet: 768px;
+$minWidthTablet: 481px;
 
-MONO:
-- "Roboto Mono" 400, 500, 600, 700
+$maxWidthMobileMed: 480px;
+$minWidthMobileMed: 351px;
 
-SLAB SERIF:
-- "Roboto Slab" 400, 700
-*/
+$maxWidthMobileSmall: 350px;

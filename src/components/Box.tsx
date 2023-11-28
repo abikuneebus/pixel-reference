@@ -34,7 +34,6 @@ const Box: React.FC<BoxProps> = ({
   setSelectedShape,
   color,
 }) => {
-  console.log("Box color: ", color); // Debug log
   // drag to resize
   const [resizeDirection, setResizeDirection] = useState<string | null>(null);
   const [resizing, setResizing] = useState<boolean>(false);
@@ -50,7 +49,7 @@ const Box: React.FC<BoxProps> = ({
     amount: number
   ): string => {
     if (!color) {
-      return "rgba(32, 57, 246, 0.87)"; // Example fallback color
+      return "rgba(32, 57, 246, 0.87)"; // fallback
     }
 
     const colorParts = color.match(/[\d.]+/g);
@@ -63,7 +62,7 @@ const Box: React.FC<BoxProps> = ({
 
   const displayColor = isSelected ? increaseOpacity(color, 0.2) : color;
 
-  // handle differentiating between dragging and resizing
+  // differentiate between dragging and resizing
   const handleResizeMouseDown = (
     e: React.MouseEvent<HTMLDivElement>,
     direction: string
@@ -187,7 +186,6 @@ const Box: React.FC<BoxProps> = ({
   };
 
   const handleOnClick = () => {
-    // onClick(id);
     setSelectedShape(id);
   };
 
@@ -198,7 +196,6 @@ const Box: React.FC<BoxProps> = ({
       style={positionStyle}
       onMouseUp={() => {
         handleOnClick();
-        // onClick(id);
         setResizing(false); // stop resizing on mouse-up
       }}
       onClick={(e) => {

@@ -1,11 +1,12 @@
 @import "variables";
 
 .canvas-container {
-  flex: 1;
+  flex: 5;
+  box-sizing: border-box;
   width: 98%;
   overflow: auto;
   margin: 10px auto 10px auto;
-  border: 1px solid $ltThemeBorderColor;
+  border: 1px solid $ltThemeBorder;
   position: relative;
   background-size: 100px 100px, 100px 100px, 50px 50px, 50px 50px, 10px 10px,
     10px 10px;
@@ -22,7 +23,7 @@
     linear-gradient(to bottom, $ltThemeGrid10 1px, transparent 1px);
 
   .mainContainer.dark & {
-    border: 1px solid $dkThemeBorderColor;
+    border: 1px solid $dkThemeBorder;
     background-image:
 
     // light-red  @100px
@@ -34,5 +35,28 @@
       // light-gray @10px
       linear-gradient(to right, $dkThemeGrid10 1px, transparent 1px),
       linear-gradient(to bottom, $dkThemeGrid10 1px, transparent 1px);
+  }
+}
+
+//* MEDIA-QUERY: TABLET
+@media (min-width: $minWidthTablet) and (max-width: $maxWidthTablet) {
+  .canvas-container {
+    margin: 5px auto 35px auto;
+  }
+}
+
+//* MEDIA-QUERY: MEDIUM-MOBILE
+@media (min-width: $minWidthMobileMed) and (max-width: $maxWidthMobileMed) {
+  .canvas-container {
+    flex: 17;
+    margin: 5px auto 35px auto;
+  }
+}
+
+//* MEDIA-QUERY: SMALL-MOBILE
+@media (max-width: $maxWidthMobileSmall) {
+  .canvas-container {
+    flex: 5;
+    margin: 5px auto 35px auto;
   }
 }

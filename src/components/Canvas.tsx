@@ -57,7 +57,6 @@ const Canvas: React.FC<CanvasProps> = ({
     };
   }, []);
 
-  // ToDo: use it or lose it (line 30 'className')
   return (
     <div
       ref={drop}
@@ -69,17 +68,13 @@ const Canvas: React.FC<CanvasProps> = ({
       onClick={() => setSelectedShape(null)}
     >
       {React.Children.map(children, (child) => {
-        // Ensure the child is a valid React element
         if (React.isValidElement(child)) {
-          // Clone the element with the additional prop
           return React.cloneElement(child as React.ReactElement, {
             setSelectedShape,
           });
         }
         return child;
       })}
-
-      {/* {children} */}
     </div>
   );
 };

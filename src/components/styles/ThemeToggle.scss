@@ -35,7 +35,7 @@
     font-family: $fontDisplayC;
     border-radius: 3px;
     box-shadow: $boxShadowDefault;
-    border: $ltThemeBorderColor solid 1px;
+    border: $ltThemeBorder solid 1px;
     cursor: pointer;
     // Animation removed from here
 
@@ -50,5 +50,16 @@
 
   &:hover {
     animation: themeToggleColorSwapReverse 1s ease forwards;
+  }
+}
+
+@media (max-width: $maxWidthTablet) {
+  .themeToggle {
+    top: unset;
+    right: unset;
+    bottom: 3px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0.8;
   }
 }

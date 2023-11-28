@@ -9,7 +9,7 @@ interface ThemeToggleProps {
 const ThemeToggle: React.FC<ThemeToggleProps> = ({ onToggle, isDarkMode }) => (
   <div className='themeToggle'>
     <button onClick={onToggle}>
-      {isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+      {isDarkMode ? "Light Mode" : "Dark Mode"}
     </button>
   </div>
 );
