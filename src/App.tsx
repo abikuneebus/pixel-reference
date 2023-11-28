@@ -16,6 +16,7 @@ const App: React.FC = () => {
   const [shapeRotation, setShapeRotation] = useState<number>(0);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [currentColorIndex, setCurrentColorIndex] = useState<number>(0);
+  
 
   const shapeColors = [
     "rgba(255, 23, 68, 0.63)", // red
@@ -33,11 +34,6 @@ const App: React.FC = () => {
     "rgba(255, 152, 0, 0.63)", // orange
     "rgba(255, 87, 34, 0.63)", // deep orange
   ];
-
-  // const getRandomColor = () => {
-  //   const randomColorIndex = Math.floor(Math.random() * shapeColors.length);
-  //   return shapeColors[randomColorIndex];
-  // };
 
   const getNextColor = () => {
     const color = shapeColors[currentColorIndex];
