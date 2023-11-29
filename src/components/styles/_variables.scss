@@ -1,44 +1,35 @@
-//# COLORS
-
-// general
-$colorDkBlue: #002244;
-$colorMedBlue: #0076aa;
-$colorBlue: #00abee;
-$colorMedBlueDesat: desaturate(#0076aa, 70%);
-$colorBlueDesat: desaturate(#00abee, 70%);
-$colorLtBlue: #6688aa;
-$colorRed: #ab1209;
-$colorYellow: #bbbb00;
-$colorGreen: #009901;
+// buttons
+$allThemeRed: #ab1209;
+$allThemeGreen: #009901;
 
 // light-theme
 $ltThemeBG: #eceff1;
-$ltThemeInput: #eff3ff;
 $ltThemeGrid10: #c5c5c550;
 $ltThemeGrid50: #75757560;
 $ltThemeGrid100: #8f575770;
 $ltThemeResizeHandles: #1f3a50df;
-$ltThemeShape: #2039f6df;
 $ltThemeBtnBG: #dee4e7;
 $ltThemeBtnTxt: #2e3943;
 $ltThemeInputBG: #e6ebee;
 $ltThemeInputTxt: #131d23;
 $ltThemeSiteLogoTxt: #6688aaa0;
+$ltThemeShapeBxShdwDefault: #eceff180;
+$ltThemeShapeBxShdwHover: #131d2380;
 
 // dark-theme
 $dkThemeBG: #131d23;
-$dkThemeGrid10: #e5e5e550;
-$dkThemeGrid50: #bfbfbf60;
-$dkThemeGrid100: #bf978350;
+$dkThemeGrid10: #e5e5e520;
+$dkThemeGrid50: #6688aa20;
+$dkThemeGrid100: #8f575740;
 $dkThemeResizeHandles: #dee4e7;
-$dkThemeShape: #bf94e4df;
 $dkThemeBtnBG: #37474f;
-$dkThemeInput: #2e3943;
 $dkThemeBtnTxt: #d4e0e6;
 $dkThemeBtnBrightTxt: #f2f5f7dd;
 $dkThemeInputBG: #1f2b31;
 $dkThemeInputTxt: #eceff1;
 $dkThemeSiteLogoTxt: #a5cbf1a0;
+$dkThemeShapeBxShdwDefault: #2e3943c0;
+$dkThemeShapeBxShdwHover: #555b51c0;
 
 // theme-toggle
 $ltThemeToDkToggleBG: #cfd8dc;
@@ -47,31 +38,31 @@ $dkThemeToLtToggleBG: #37474f;
 $dkThemeToLtToggleTxt: #a8b7bd;
 
 // shape-select
-$circleShapeSelectedGrd: radial-gradient(circle, $colorBlue, $colorMedBlue);
-$circleShapeGrd: radial-gradient(circle, $colorBlueDesat, $colorMedBlueDesat);
-$rectangleShapeSelectedGrd: linear-gradient(
-  to right,
-  $colorBlue,
-  $colorMedBlue
+$circleShapeSelectedGrd: radial-gradient(circle, #00abee, #0076aa);
+$circleShapeGrd: radial-gradient(
+  circle,
+  desaturate(#00abee, 70%),
+  desaturate(#0076aa, 70%)
 );
+$rectangleShapeSelectedGrd: linear-gradient(to right, #00abee, #0076aa);
 $rectangleShapeGrd: linear-gradient(
   to right,
-  $colorBlueDesat,
-  $colorMedBlueDesat
+  desaturate(#00abee, 70%),
+  desaturate(#0076aa, 70%)
 );
 
 // fonts
 $fontSans: "Roboto", "PT Sans";
 $fontMono: "Roboto Mono";
-$fontSlab: "Roboto Slab";
-$fontSerif: "Playfair Display";
-$fontDisplayA: "Syne Mono";
-$fontDisplayB: "Philosopher";
-$fontDisplayC: "Share Tech Mono";
-$fontDisplayD: "Trade Winds";
+$fontDisplay: "Share Tech Mono";
+// imported:
+// $fontSlab: "Roboto Slab";
+// $fontSerif: "Playfair Display";
+// $fontDisplayAltA: "Syne Mono";
+// $fontDisplayAltB: "Philosopher";
+// $fontDisplayAltC: "Trade Winds";
 
 // borders
-$borderRadiusDefault: 4px;
 $borderRadiusCircle: 50%;
 $ltThemeBorder: #16162e80;
 $ltThemeBtnBorder: #16162e40;
@@ -80,38 +71,13 @@ $dkThemeBtnBorder: #b0bec540;
 
 // shadow
 $boxShadowDefault: 0px 2px 4px rgba(0, 0, 0, 0.1);
-$boxShadowHover: 0px 4px 6px rgba(0, 0, 0, 0.1);
-$boxShadowDark: 0px 2px 4px rgba(255, 255, 255, 0.1);
-$boxShadowHoverDark: 0px 4px 6px rgba(255, 255, 255, 0.1);
+$boxShadowDark: 0px 1px 50px rgba(255, 255, 255, 0.1);
 $ltThemesiteLogoShadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 $dkThemesiteLogoShadow: 2px 2px 5px rgba(255, 255, 255, 0.2);
-
-// typography
-$fontSizeSmall: 12px;
-$fontSizeMedium: 12px;
-$fontSizeLarge: 12px;
-$lineHeightDefault: 1.5;
-
-// spacing
-$spacingUnit: 8px;
-$spacingSmall: $spacingUnit;
-$spacingMedium: 2 * $spacingUnit;
-$spacingLarge: 3 * $spacingUnit;
-
-// z-index
-$zIndexDropdown: 100;
-$zIndexModal: 200;
-$zIndexOverlay: 300;
-
-// other
-$maxWidthContainer: 1200px;
-$lineHeightButton: 1.2;
 
 // media queries
 $maxWidthTablet: 768px;
 $minWidthTablet: 481px;
-
 $maxWidthMobileMed: 480px;
 $minWidthMobileMed: 351px;
-
 $maxWidthMobileSmall: 350px;

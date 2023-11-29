@@ -8,7 +8,7 @@ import Canvas from "./components/Canvas";
 import ControlPanel from "./components/ControlPanel";
 import ThemeToggle from "./components/ThemeToggle";
 import { IShape } from "./types";
-import { isTouchDevice } from "./utils/utils";
+import { isMobile } from "./utils/utils";
 
 const App: React.FC = () => {
   const [shapes, setShapes] = useState<IShape[]>([]);
@@ -20,7 +20,10 @@ const App: React.FC = () => {
   const [currentColorIndex, setCurrentColorIndex] = useState<number>(0);
   const [topZIndex, setTopZIndex] = useState<number>(0);
 
-  const backendForDND = isTouchDevice() ? TouchBackend : HTML5Backend;
+  const dndBackend = isMobile() ? TouchBackend : HTML5Backend;
+  const dndOptions = isMobile()
+    ? { enableMouseEvents: true, delayTouchStart: 100 }
+    : {};
 
   // 1st shape's color picked randomly, following shapes iterate through array, wrapping around
   const shapeColors = [
@@ -204,7 +207,10 @@ const App: React.FC = () => {
   }, [deleteShape]);
 
   return (
-    <DndProvider backend={backendForDND}>
+    <DndProvider
+      backend={dndBackend}
+      options={dndOptions}
+    >
       <div className={`mainContainer ${isDarkMode ? "dark" : "light"}`}>
         <ThemeToggle
           onToggle={toggleTheme}

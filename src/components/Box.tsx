@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDrag } from "react-dnd";
 import { IShape } from "../types";
-import { isTouchDevice } from "../utils/utils";
+import { isMobile } from "../utils/utils";
 import "./styles/Box.scss";
 
 interface BoxProps extends IShape {
@@ -65,15 +65,12 @@ const Box: React.FC<BoxProps> = ({
 
   const displayColor = isSelected ? increaseOpacity(color, 0.2) : color;
 
-  //* touch handlers
-
-  //* mouse handlers
   // differentiate between dragging and resizing
   const handleResizeMouseDown = (
     e: React.MouseEvent<HTMLDivElement>,
     direction: string
   ) => {
-    e.stopPropagation(); // prevent DnD logic
+    e.stopPropagation(); // prevent DnD
     if (resizable && isSelected) {
       setResizing(true);
       SetInitialMouseX(e.clientX);
@@ -90,7 +87,7 @@ const Box: React.FC<BoxProps> = ({
     e: React.TouchEvent<HTMLDivElement>,
     direction: string
   ) => {
-    e.stopPropagation(); // prevent DnD logic
+    e.stopPropagation(); // prevent DnD
     if (resizable && isSelected) {
       setResizing(true);
       const touch = e.touches[0];
@@ -110,7 +107,7 @@ const Box: React.FC<BoxProps> = ({
       let dx = touch.clientX - initialMouseX;
       let dy = touch.clientY - initialMouseY;
 
-      // Apply resizing logic here (similar to mouse logic)
+      // resizing
       let newWidth = initialWidth;
       let newHeight = initialHeight;
       let newX = initialX;
@@ -152,7 +149,7 @@ const Box: React.FC<BoxProps> = ({
   };
 
   useEffect(() => {
-    // Mouse event handlers
+    // mouse event handlers
     const handleMouseMove = (e: MouseEvent) => {
       if (resizing) {
         let dx = e.clientX - initialMouseX;
@@ -198,12 +195,12 @@ const Box: React.FC<BoxProps> = ({
       }
     };
 
-    // Touch event handlers (already defined in your component)
+    // touch event handlers
     const handleTouchMove = (e: TouchEvent) => handleResizeTouchMove(e);
     const handleTouchEnd = (e: TouchEvent) => handleResizeTouchEnd();
 
     if (resizing) {
-      if (isTouchDevice()) {
+      if (isMobile()) {
         window.addEventListener("touchmove", handleTouchMove);
         window.addEventListener("touchend", handleTouchEnd);
       } else {
@@ -214,7 +211,7 @@ const Box: React.FC<BoxProps> = ({
 
     return () => {
       if (resizing) {
-        if (isTouchDevice()) {
+        if (isMobile()) {
           window.removeEventListener("touchmove", handleTouchMove);
           window.removeEventListener("touchend", handleTouchEnd);
         } else {
@@ -238,19 +235,10 @@ const Box: React.FC<BoxProps> = ({
     handleResizeTouchEnd,
   ]);
 
-  // handle relocation
   const [{ isDragging }, drag] = useDrag({
     type: "box",
     item: { id, x, y },
     canDrag: !resizing,
-    end: (item, monitor) => {
-      const delta = monitor.getDifferenceFromInitialOffset();
-      if (delta) {
-        const newX = Math.round(item.x + delta.x);
-        const newY = Math.round(item.y + delta.y);
-        onMove(item.id, newX, newY);
-      }
-    },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -275,7 +263,6 @@ const Box: React.FC<BoxProps> = ({
   };
 
   const handleOnClick = () => {
-    // setSelectedShape(id);
     onClick(id);
   };
 

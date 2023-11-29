@@ -3,9 +3,9 @@ import { useDrop } from "react-dnd";
 import "./styles/Canvas.scss";
 
 interface CanvasProps {
-  onDrop: (id: string, left: number, top: number) => void; // function to update position on drop
+  onDrop: (id: string, left: number, top: number) => void; // update position on drop
   children: React.ReactNode;
-  className?: string; // ToDo: use it or lose it
+  className?: string;
   setSelectedShape: (value: string | null) => void;
 }
 
@@ -16,7 +16,7 @@ const Canvas: React.FC<CanvasProps> = ({
   setSelectedShape,
 }) => {
   const [, drop] = useDrop({
-    accept: "box", // accepts the same type as defined in draggable items
+    accept: "box",
     drop: (item: any, monitor) => {
       const delta = monitor.getDifferenceFromInitialOffset();
       if (delta) {
@@ -25,9 +25,6 @@ const Canvas: React.FC<CanvasProps> = ({
         onDrop(item.id, left, top);
       }
     },
-    collect: (monitor) => ({
-      isOver: !!monitor.isOver(),
-    }),
   });
 
   const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });

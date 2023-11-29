@@ -37,7 +37,7 @@
   .siteLogo {
     font-size: 24px;
     text-shadow: $ltThemesiteLogoShadow;
-    font-family: $fontDisplayC;
+    font-family: $fontDisplay;
     color: $ltThemeSiteLogoTxt;
   }
 
@@ -245,20 +245,20 @@
 
     .generateBtn {
       margin-bottom: 2px;
-      background-color: $colorGreen;
+      background-color: $allThemeGreen;
       transition: background-color 0.3s ease;
 
       &:hover {
-        background-color: lighten($colorGreen, 10%);
+        background-color: lighten($allThemeGreen, 10%);
       }
     }
     .deleteBtn {
-      background-color: $colorRed;
+      background-color: $allThemeRed;
       margin-bottom: 0;
       transition: background-color 0.3s ease;
 
       &:hover {
-        background-color: lighten($colorRed, 10%);
+        background-color: lighten($allThemeRed, 10%);
       }
     }
   }
@@ -294,12 +294,12 @@
     }
     .generateBtn {
       &:hover {
-        background-color: darken($colorGreen, 10%);
+        background-color: darken($allThemeGreen, 10%);
       }
     }
     .deleteBtn {
       &:hover {
-        background-color: darken($colorRed, 10%);
+        background-color: darken($allThemeRed, 10%);
       }
     }
   }
@@ -389,7 +389,7 @@
     .siteLogoContainer {
       top: 5px;
       .siteLogo {
-        font-size: 18px;
+        font-size: 16px;
       }
     }
 

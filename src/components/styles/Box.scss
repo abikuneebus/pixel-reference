@@ -1,23 +1,13 @@
 @import "variables";
 
-@keyframes shapePulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.015);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
 .box {
   position: absolute;
   cursor: move;
+  box-shadow: 2px 2px 4px $ltThemeShapeBxShdwDefault;
+  transition: box-shadow 0.3s ease;
 
   &:hover {
-    animation: shapePulse 0.5s 1;
+    box-shadow: 4px 4px 8px $ltThemeShapeBxShdwHover;
   }
 
   &.circle {
@@ -70,15 +60,26 @@
 }
 
 .mainContainer.dark {
-  .topLeft,
-  .topRight,
-  .bottomRight,
-  .bottomLeft {
-    background-color: $dkThemeResizeHandles;
+  .box {
+    box-shadow: 2px 2px 4px $dkThemeShapeBxShdwDefault;
+    transition: box-shadow 0.3s ease;
 
     &:hover {
-      transform: scale(120%);
-      background-color: darken($dkThemeResizeHandles, 10%);
+      box-shadow: 4px 4px 8px $dkThemeShapeBxShdwHover;
+    }
+
+    &.selected {
+      .topLeft,
+      .topRight,
+      .bottomRight,
+      .bottomLeft {
+        background-color: $dkThemeResizeHandles;
+
+        &:hover {
+          transform: scale(120%);
+          background-color: darken($dkThemeResizeHandles, 10%);
+        }
+      }
     }
   }
 }

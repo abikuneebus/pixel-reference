@@ -266,6 +266,13 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
               onMouseLeave={() => {
                 stopRotating();
               }}
+              onTouchStart={(e) => {
+                e.stopPropagation();
+                startRotating(-1);
+              }}
+              onTouchEnd={() => {
+                stopRotating();
+              }}
               tabIndex={4}
             >
               -
@@ -292,6 +299,13 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
                 stopRotating();
               }}
               onMouseLeave={() => {
+                stopRotating();
+              }}
+              onTouchStart={(e) => {
+                e.stopPropagation();
+                startRotating(1);
+              }}
+              onTouchEnd={() => {
                 stopRotating();
               }}
               tabIndex={5}
