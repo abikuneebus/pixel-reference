@@ -1,12 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { TouchBackend } from "react-dnd-touch-backend";
 import "./App.scss";
 import Box from "./components/Box";
 import Canvas from "./components/Canvas";
 import ControlPanel from "./components/ControlPanel";
 import ThemeToggle from "./components/ThemeToggle";
 import { IShape } from "./types";
+import { isTouchDevice } from "./utils/utils";
 
 const App: React.FC = () => {
   const [shapes, setShapes] = useState<IShape[]>([]);
@@ -18,6 +20,9 @@ const App: React.FC = () => {
   const [currentColorIndex, setCurrentColorIndex] = useState<number>(0);
   const [topZIndex, setTopZIndex] = useState<number>(0);
 
+  const backendForDND = isTouchDevice() ? TouchBackend : HTML5Backend;
+
+  // 1st shape's color picked randomly, following shapes iterate through array, wrapping around
   const shapeColors = [
     "rgba(255, 23, 68, 0.63)", // red
     "rgba(244, 143, 177, 0.63)", // pink
@@ -199,7 +204,7 @@ const App: React.FC = () => {
   }, [deleteShape]);
 
   return (
-    <DndProvider backend={HTML5Backend}>
+    <DndProvider backend={backendForDND}>
       <div className={`mainContainer ${isDarkMode ? "dark" : "light"}`}>
         <ThemeToggle
           onToggle={toggleTheme}
