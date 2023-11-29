@@ -2,6 +2,7 @@
 
 .box {
   position: absolute;
+  user-select: none;
   cursor: move;
   box-shadow: 2px 2px 4px $ltThemeShapeBxShdwDefault;
   transition: box-shadow 0.3s ease;
@@ -16,6 +17,7 @@
 
   &.selected {
     position: relative;
+    user-select: none;
 
     .topLeft,
     .topRight,

@@ -30,6 +30,7 @@
 
   button {
     background-color: $ltThemeToDkToggleBG;
+    user-select: none;
     color: $ltThemeToDkToggleTxt;
     padding: 5px;
     font-family: $fontDisplay;

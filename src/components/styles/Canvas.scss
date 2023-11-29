@@ -5,6 +5,7 @@ body {
 }
 
 .canvas-container {
+  user-select: none;
   touch-action: none;
   flex: 5;
   box-sizing: border-box;
