@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDrag } from "react-dnd";
+import { DragPreviewImage, useDrag } from "react-dnd";
 import { IShape } from "../types";
 import { isMobile } from "../utils/utils";
 import "./styles/Box.scss";
@@ -235,14 +235,13 @@ const Box: React.FC<BoxProps> = ({
     handleResizeTouchEnd,
   ]);
 
-  const [{ isDragging }, drag] = useDrag({
+  const [{ isDragging }, drag, preview] = useDrag(() => ({
     type: "box",
     item: { id, x, y },
-    canDrag: !resizing,
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
-  });
+  }));
 
   const baseClassName = "box";
   const shapeClassName = `${baseClassName} ${type}`;
@@ -267,43 +266,49 @@ const Box: React.FC<BoxProps> = ({
   };
 
   return (
-    <div
-      ref={drag}
-      className={`${shapeClassName} ${isSelected ? "selected" : ""}`}
-      style={positionStyle}
-      onMouseUp={() => {
-        handleOnClick();
-        setResizing(false); // stop resizing on mouse-up
-      }}
-      onClick={(e) => {
-        e.stopPropagation();
-      }}
-    >
-      {isSelected && resizable && (
-        <>
-          <div
-            className='topLeft'
-            onMouseDown={(e) => handleResizeMouseDown(e, "topLeft")}
-            onTouchStart={(e) => handleResizeTouchStart(e, "topLeft")}
-          />
-          <div
-            className='topRight'
-            onMouseDown={(e) => handleResizeMouseDown(e, "topRight")}
-            onTouchStart={(e) => handleResizeTouchStart(e, "topRight")}
-          />
-          <div
-            className='bottomRight'
-            onMouseDown={(e) => handleResizeMouseDown(e, "bottomRight")}
-            onTouchStart={(e) => handleResizeTouchStart(e, "bottomRight")}
-          />
-          <div
-            className='bottomLeft'
-            onMouseDown={(e) => handleResizeMouseDown(e, "bottomLeft")}
-            onTouchStart={(e) => handleResizeTouchStart(e, "bottomLeft")}
-          />
-        </>
-      )}
-    </div>
+    <>
+      <DragPreviewImage
+        connect={preview}
+        src='data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='
+      />
+      <div
+        ref={drag}
+        className={`${shapeClassName} ${isSelected ? "selected" : ""}`}
+        style={positionStyle}
+        onMouseUp={() => {
+          handleOnClick();
+          setResizing(false); // stop resizing on mouse-up
+        }}
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+      >
+        {isSelected && resizable && (
+          <>
+            <div
+              className='topLeft'
+              onMouseDown={(e) => handleResizeMouseDown(e, "topLeft")}
+              onTouchStart={(e) => handleResizeTouchStart(e, "topLeft")}
+            />
+            <div
+              className='topRight'
+              onMouseDown={(e) => handleResizeMouseDown(e, "topRight")}
+              onTouchStart={(e) => handleResizeTouchStart(e, "topRight")}
+            />
+            <div
+              className='bottomRight'
+              onMouseDown={(e) => handleResizeMouseDown(e, "bottomRight")}
+              onTouchStart={(e) => handleResizeTouchStart(e, "bottomRight")}
+            />
+            <div
+              className='bottomLeft'
+              onMouseDown={(e) => handleResizeMouseDown(e, "bottomLeft")}
+              onTouchStart={(e) => handleResizeTouchStart(e, "bottomLeft")}
+            />
+          </>
+        )}
+      </div>
+    </>
   );
 };
 
