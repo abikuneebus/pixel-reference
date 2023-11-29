@@ -1,5 +1,9 @@
 @import "variables";
 
+body {
+  overflow: hidden;
+}
+
 .canvas-container {
   touch-action: none;
   flex: 5;
