@@ -23,6 +23,19 @@ Though I've gotten better at "eyeballing" pixel size, and have installed a few '
 - **Create React App**: Bootstrapped with Create React App for efficient project setup and build processes.
 - **React DnD**: Used to seamlessly implement 'drag-n-drop' functionality.
 
+## **Gallery**
+### _Desktop_
+![PixelRefDT1](https://github.com/abikuneebus/pixel-reference/assets/113397554/d807fd23-a1d4-46cb-8aa0-3f88362a838f)
+![PixelRefDT2](https://github.com/abikuneebus/pixel-reference/assets/113397554/b55015c0-788b-4871-8295-447ea20d46a3)
+![PixelRefDT3](https://github.com/abikuneebus/pixel-reference/assets/113397554/d10e0e6d-5454-44c8-8d54-cf6444c3f81a)
+![PixelRefDT4](https://github.com/abikuneebus/pixel-reference/assets/113397554/2ba19a27-d628-4eed-918b-9518e8ff761a)
+
+### _Mobile_
+![PixelRefM1](https://github.com/abikuneebus/pixel-reference/assets/113397554/043233a2-2ed2-4635-bc81-1b1999e15959)
+![PixelRefM2](https://github.com/abikuneebus/pixel-reference/assets/113397554/47ff0bcc-e675-4e4c-a0f0-8d2080ec5aab)
+![PixelRefM3](https://github.com/abikuneebus/pixel-reference/assets/113397554/c54b82a6-fb17-46ec-8bcd-9e3e8dfad005)
+![PixelRefM4](https://github.com/abikuneebus/pixel-reference/assets/113397554/5ff9f857-6c52-469c-8ba4-796f91674400)
+
 ## Getting Started
 
 To get a local copy up and running, follow these simple steps:
