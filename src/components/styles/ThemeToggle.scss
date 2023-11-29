@@ -32,24 +32,27 @@
     background-color: $ltThemeToDkToggleBG;
     color: $ltThemeToDkToggleTxt;
     padding: 5px;
-    font-family: $fontDisplayC;
+    font-family: $fontDisplay;
     border-radius: 3px;
     box-shadow: $boxShadowDefault;
     border: $ltThemeBorder solid 1px;
     cursor: pointer;
-    // Animation removed from here
 
     &:hover {
       animation: themeToggleColorSwap 1s ease forwards;
     }
   }
 }
-.mainContainer.dark .themeToggle button {
-  background-color: $dkThemeToLtToggleBG;
-  color: $dkThemeToLtToggleTxt;
-
-  &:hover {
-    animation: themeToggleColorSwapReverse 1s ease forwards;
+.mainContainer.dark {
+  .themeToggle {
+    button {
+      background-color: $dkThemeToLtToggleBG;
+      color: $dkThemeToLtToggleTxt;
+      box-shadow: $boxShadowDark;
+      &:hover {
+        animation: themeToggleColorSwapReverse 1s ease forwards;
+      }
+    }
   }
 }
 

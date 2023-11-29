@@ -1,6 +1,7 @@
 @import "variables";
 
 .canvas-container {
+  touch-action: none;
   flex: 5;
   box-sizing: border-box;
   width: 98%;
