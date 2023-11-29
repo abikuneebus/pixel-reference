@@ -27,6 +27,7 @@
     "test": "echo \"No tests yet\"",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
+    "postbuild": "node fix-paths.js",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
